@@ -1,0 +1,1655 @@
+/* ==========================================================================
+   Jakobs HusFix — components.css
+   Kort, prisblock, steg, statistik, områdespanel och formulär.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Tjänstekort (bento)
+   -------------------------------------------------------------------------- */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(.9rem, 1.5vw, 1.4rem);
+}
+
+.card {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.4rem, 2.1vw, 1.9rem);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--paper-2);
+  overflow: hidden;
+  /* Lugn, jämn rörelse: boxen glider mjukt på plats i stället för att
+     studsa. Se hover-animationen längre ned.
+     Lutningen mot pekaren (js/effects.js) ligger medvetet på de egna
+     egenskaperna rotate/scale, inte här: de läggs ovanpå transform och
+     krockar därför inte med svajningen. */
+  transition:
+    transform .9s var(--ease-in-out),
+    box-shadow .9s var(--ease-out),
+    border-color .5s var(--ease-out);
+}
+.card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(192, 92, 58, .38);
+  box-shadow: var(--shadow-md);
+}
+
+/* Mjuk, svajig hover på boxarna i sektionen "01 — Vår tjänst": prisblocket
+   (#priser) och korten 01–06. card-rise lyfter boxen långsamt och jämnt
+   (1,2 s, ease-in-out – ingen snabb "popp") och card-wobble tar vid i exakt
+   samma läge, så att rörelsen aldrig hackar till. Nyckelbildrutorna finns i
+   css/effects.css. Körs bara på enheter som faktiskt har muspekare, så att
+   effekten inte fastnar på pekskärmar. */
+@media (hover: hover) and (pointer: fine) {
+  .card:hover,
+  .price-banner:hover {
+    animation:
+      card-rise 1.2s var(--ease-in-out),
+      card-wobble 4.2s linear 1.2s infinite;
+  }
+}
+
+/* Spotljus som följer muspekaren (--mx/--my sätts av effects.js) */
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0;
+  background: radial-gradient(
+    280px 280px at var(--mx, 50%) var(--my, 0%),
+    rgba(140, 217, 196, .30),
+    transparent 68%
+  );
+  transition: opacity .75s var(--ease-out);
+  pointer-events: none;
+}
+.card:hover::after { opacity: 1; }
+
+/* Indexsiffran kvitterar hover med färg och en liten växning. */
+.card-index {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.4rem;
+  font-family: var(--font-display);
+  font-size: .82rem;
+  font-style: italic;
+  font-weight: 600;
+  letter-spacing: .06em;
+  color: var(--muted-2);
+  transition: color var(--t-base) var(--ease-out), scale var(--t-base) var(--ease-spring);
+}
+.card:hover .card-index { color: var(--clay); scale: 1.12; }
+
+.card-icon {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 1.15rem;
+  border-radius: 15px;
+  color: var(--forest);
+  background: linear-gradient(140deg, var(--mint), #cdf3e7);
+  box-shadow: inset 0 0 0 1px rgba(20, 17, 16, .05);
+  /* Mjukt studsande ikon: lite snabbare än kortet, med en aning överskjut. */
+  transition: transform .62s var(--ease-spring), box-shadow .6s var(--ease-out);
+}
+.card:hover .card-icon {
+  transform: translateY(-4px) rotate(-7deg) scale(1.06);
+  box-shadow: inset 0 0 0 1px rgba(20, 17, 16, .05), 0 14px 30px -12px rgba(44, 144, 119, .75);
+}
+
+.card--accent {
+  background: linear-gradient(150deg, var(--mint-soft) 0%, var(--paper-2) 72%);
+  border-color: rgba(44, 144, 119, .24);
+}
+
+.card--accent .card-icon {
+  background: linear-gradient(140deg, var(--clay), #e08a68);
+  color: #fff;
+}
+
+.card h3 { margin-bottom: .5rem; }
+.card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: .95rem;
+  line-height: 1.66;
+}
+
+/* --------------------------------------------------------------------------
+   2. Prisblock
+   -------------------------------------------------------------------------- */
+.price-banner {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: minmax(0, auto) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(1.1rem, 3vw, 2.6rem);
+  margin-bottom: clamp(1.4rem, 2.4vw, 2.2rem);
+  padding: clamp(1.4rem, 2.4vw, 2.1rem) clamp(1.4rem, 2.6vw, 2.4rem);
+  border: 1px solid rgba(192, 92, 58, .26);
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(120% 140% at 0% 0%, rgba(242, 193, 78, .18), transparent 55%),
+    linear-gradient(130deg, var(--clay-soft) 0%, var(--paper-2) 62%);
+  overflow: hidden;
+  /* Låter boxen glida mjukt tillbaka när muspekaren lämnar den (se
+     hover-animationen i css/effects.css). */
+  transition: transform .9s var(--ease-in-out);
+}
+.price-banner::before {
+  content: "";
+  position: absolute;
+  right: -40px;
+  top: -40px;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(192, 92, 58, .16), transparent 70%);
+  pointer-events: none;
+}
+
+.price-main {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: .15rem;
+  padding-right: clamp(1rem, 2.5vw, 2.4rem);
+  border-right: 1px solid rgba(192, 92, 58, .22);
+}
+.price-amount {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 4.6vw, 3.4rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -.035em;
+  color: var(--clay-dark);
+}
+.price-amount em { font-style: italic; }
+.price-unit {
+  font-size: .82rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--clay-dark);
+  opacity: .8;
+}
+
+.price-note {
+  position: relative;
+  margin: 0;
+  max-width: 52ch;
+  color: var(--ink-2);
+  font-size: .94rem;
+  line-height: 1.62;
+}
+
+.price-estimate {
+  display: none;
+  position: relative;
+  margin: 0 0 1.15rem;
+  padding: .95rem 1.15rem;
+  border: 1px solid rgba(44, 144, 119, .3);
+  border-radius: var(--radius-sm);
+  background: var(--mint-soft);
+  color: var(--forest-2);
+  font-size: .93rem;
+  font-weight: 700;
+  line-height: 1.55;
+}
+.price-estimate.visible {
+  display: block;
+  animation: reveal-pop .45s var(--ease-spring) both;
+}
+
+/* --------------------------------------------------------------------------
+   3. Så funkar det — tidslinje
+   -------------------------------------------------------------------------- */
+.steps {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.6rem, 3.4vw, 3rem);
+}
+
+.steps-line {
+  position: absolute;
+  top: 27px;
+  left: 12%;
+  right: 12%;
+  height: 1px;
+  background: repeating-linear-gradient(90deg, var(--line-strong) 0 7px, transparent 7px 15px);
+  pointer-events: none;
+}
+
+.step {
+  position: relative;
+  text-align: center;
+}
+
+.step-num {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  margin: 0 auto 1.15rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  background: var(--paper-2);
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--clay);
+  transition:
+    translate .42s var(--ease-spring),
+    scale .42s var(--ease-spring),
+    rotate .42s var(--ease-spring),
+    background-color var(--t-base) var(--ease-out),
+    color var(--t-base) var(--ease-out),
+    border-color var(--t-base) var(--ease-out),
+    box-shadow .45s var(--ease-out);
+}
+.step:hover .step-num {
+  translate: 0 -5px;
+  scale: 1.08;
+  rotate: -4deg;
+  border-color: transparent;
+  background: var(--clay);
+  color: #fff;
+  box-shadow: var(--glow-clay);
+}
+
+.step h3 { margin-bottom: .5rem; }
+.step p {
+  margin: 0;
+  color: var(--muted);
+  font-size: .95rem;
+  line-height: 1.66;
+}
+
+/* --------------------------------------------------------------------------
+   4. Check-lista
+   -------------------------------------------------------------------------- */
+.check-list li {
+  position: relative;
+  margin-bottom: .75rem;
+  padding-left: 2rem;
+  font-size: .97rem;
+  font-weight: 600;
+  line-height: 1.62;
+}
+.check-list li:last-child { margin-bottom: 0; }
+.check-list li::before {
+  content: "\2713";
+  position: absolute;
+  left: 0;
+  top: calc((1.62rem - 1.3rem) / 2);
+  display: grid;
+  place-items: center;
+  width: 1.3rem;
+  height: 1.3rem;
+  border-radius: 50%;
+  background: linear-gradient(140deg, var(--mint), #cdf3e7);
+  color: var(--forest);
+  font-size: .76rem;
+  font-weight: 800;
+  line-height: 1;
+}
+.check-list--light li { color: var(--on-dark); }
+.check-list--light li::before { background: linear-gradient(140deg, var(--mint), #a9e8d6); }
+
+/* --------------------------------------------------------------------------
+   5. Statistik (om oss)
+   -------------------------------------------------------------------------- */
+.om-oss-visual { display: grid; gap: clamp(1rem, 2vw, 1.4rem); }
+
+.om-oss-frame {
+  position: relative;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+.om-oss-frame img {
+  display: block;
+  width: 100%;
+  transform: scale(1.02);
+  /* Långsam, glidande zoom – bilden "andas" i stället för att hoppa. */
+  transition: transform 1.3s var(--ease-glide), filter .9s var(--ease-out);
+}
+.om-oss-frame:hover img { transform: scale(1.08); filter: saturate(1.06); }
+.om-oss-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgba(20, 17, 16, .09);
+  pointer-events: none;
+}
+
+.om-oss-badge {
+  position: absolute;
+  left: 1.1rem;
+  bottom: 1.1rem;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .55rem 1rem;
+  border-radius: var(--radius-pill);
+  background: rgba(252, 250, 245, .92);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  font-size: .82rem;
+  font-weight: 800;
+  letter-spacing: .01em;
+  color: var(--forest);
+  box-shadow: var(--shadow-sm);
+}
+.om-oss-badge svg { width: 15px; height: 15px; color: var(--clay); flex: none; }
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(.7rem, 1.4vw, 1rem);
+}
+.stat {
+  padding: 1.3rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper-2);
+  text-align: center;
+  transition:
+    translate var(--t-base) var(--ease-spring),
+    scale var(--t-base) var(--ease-spring),
+    background-color var(--t-base) var(--ease-out),
+    border-color var(--t-base) var(--ease-out),
+    box-shadow var(--t-base) var(--ease-out);
+}
+.stat:hover {
+  translate: 0 -4px;
+  border-color: var(--line-strong);
+  background: #fff;
+  box-shadow: var(--shadow-sm);
+}
+.stat-num {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 2.7vw, 2.15rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -.03em;
+  color: var(--ink);
+  transition: scale var(--t-base) var(--ease-spring), color var(--t-base) var(--ease-out);
+}
+.stat:hover .stat-num { scale: 1.05; }
+.stat-num em { font-style: italic; color: var(--clay); }
+.stat-label {
+  display: block;
+  margin-top: .35rem;
+  font-size: .84rem;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+/* --------------------------------------------------------------------------
+   6. Områdespanel
+   -------------------------------------------------------------------------- */
+.area-list-wrap {
+  padding: clamp(1.4rem, 2.4vw, 2rem);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--paper-2);
+  box-shadow: var(--shadow-sm);
+}
+.area-list-wrap h3 { margin-bottom: 1.2rem; }
+
+.area-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .55rem;
+}
+.area-list li {
+  padding: .42rem .9rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  background: var(--paper);
+  font-size: .89rem;
+  font-weight: 600;
+  color: var(--ink-2);
+  transition:
+    translate var(--t-base) var(--ease-spring),
+    scale var(--t-base) var(--ease-spring),
+    background-color var(--t-base) var(--ease-out),
+    border-color var(--t-base) var(--ease-out),
+    color var(--t-base) var(--ease-out),
+    box-shadow var(--t-base) var(--ease-out);
+}
+.area-list li:hover {
+  translate: 0 -3px;
+  scale: 1.04;
+  border-color: rgba(44, 144, 119, .38);
+  background: var(--mint-soft);
+  color: var(--mint-dark);
+  box-shadow: 0 10px 22px -14px rgba(44, 144, 119, .8);
+}
+.area-note {
+  margin: 1.2rem 0 0;
+  color: var(--muted);
+  font-size: .89rem;
+  line-height: 1.6;
+}
+
+.area-check { margin-top: 1.8rem; }
+.area-check label {
+  display: block;
+  margin-bottom: .7rem;
+  font-size: .95rem;
+  font-weight: 700;
+}
+.area-check-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .7rem;
+}
+.area-check-row .combo { flex: 1 1 240px; }
+
+.area-result {
+  margin: .95rem 0 0;
+  min-height: 1.5em;
+  font-size: .95rem;
+  font-weight: 700;
+  line-height: 1.55;
+}
+.area-result.ok { color: var(--mint-dark); }
+.area-result.fail { color: #b23a2a; }
+
+/* --- Staplingsordning för områdespanelen -----------------------------------
+   Förslagslistan (.combo-list) ligger absolut placerad och skjuter ut nedanför
+   fältet, men den hamnade bakom det som kommer senare i DOM-ordningen: den
+   mörka boka-sektionen (05) och – i enkolumnsläget – kortet "Områden vi
+   arbetar i". Orsaken är att .omrade-copy får en egen staplingskontext av
+   intoningen (data-reveal sätter translate, .reveal sätter will-change), så
+   listans eget z-index: 40 räknas bara mot syskonen där inne.
+   Två lyft behövs därför, båda på element som redan är positionerade
+   (.section i base.css har position: relative):
+
+     1. hela sektionen, så att listan får skjuta in över boka-sektionen som
+        annars ligger överst tack vare isolation: isolate,
+     2. textkolumnen, så att listan hamnar ovanpå .area-list-wrap som står
+        efter den i samma sektion (det är läget under 980 px).
+
+   z-index-värdena är medvetet låga – de ska bara slå syskonen i samma flöde,
+   aldrig den klibbiga sidhuvudet (90) eller musljuset (96). */
+
+#omrade { z-index: 2; }
+
+.omrade-copy {
+  position: relative;
+  z-index: 3;
+}
+
+/* --------------------------------------------------------------------------
+   7. Bokningsformulär
+   -------------------------------------------------------------------------- */
+.section-book {
+  position: relative;
+  overflow: hidden;
+  background: var(--forest);
+  color: var(--on-dark);
+  isolation: isolate;
+}
+.section-book::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background: url("../images/pattern-windows.svg") repeat;
+  background-size: 128px 128px;
+  opacity: .85;
+}
+.section-book::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(80% 60% at 92% 0%, rgba(140, 217, 196, .20), transparent 62%),
+    radial-gradient(70% 60% at 0% 100%, rgba(192, 92, 58, .22), transparent 60%),
+    linear-gradient(180deg, rgba(14, 30, 25, .72), rgba(14, 30, 25, .94));
+  pointer-events: none;
+}
+
+.section-head--light h2 { color: #fff; }
+.section-head--light .eyebrow { color: var(--mint); }
+.section-head--light .label-num { color: var(--on-dark-mut); }
+
+.booking-form {
+  position: relative;
+  padding: clamp(1.5rem, 3vw, 2.4rem);
+  border-radius: var(--radius-xl);
+  background: var(--paper-2);
+  color: var(--ink);
+  box-shadow: var(--shadow-lg);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.1rem;
+}
+.field:last-of-type { margin-bottom: 1.2rem; }
+
+.field label {
+  margin-bottom: .45rem;
+  font-size: .89rem;
+  font-weight: 700;
+  letter-spacing: .004em;
+  transition: color var(--t-fast) var(--ease-out), translate var(--t-base) var(--ease-spring);
+}
+/* Etiketten kvitterar att fältet är aktivt – liten färg- och positionsändring. */
+.field:focus-within label { color: var(--mint-dark); translate: 2px 0; }
+
+.req { color: var(--clay); }
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 13px 15px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--paper);
+  color: var(--ink);
+  caret-color: var(--clay);
+  transition:
+    border-color var(--t-fast) var(--ease-out),
+    box-shadow .3s var(--ease-out),
+    background-color var(--t-fast) var(--ease-out);
+}
+.field textarea { resize: vertical; min-height: 96px; }
+.field input::placeholder,
+.field textarea::placeholder { color: var(--muted-2); }
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--mint-dark);
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(44, 144, 119, .14);
+}
+
+/* Pekaren över ett fält ger en mjuk förvarning om att det går att skriva i.
+   Bara på enheter med mus, och aldrig på ett fält som redan är felmärkt – den
+   röda ramen ska stå kvar. */
+@media (hover: hover) and (pointer: fine) {
+  .field:not(.invalid) input:hover,
+  .field:not(.invalid) select:hover,
+  .field:not(.invalid) textarea:hover,
+  .area-check-row .combo input:hover,
+  .combo-display:not(:disabled):hover { border-color: var(--line-strong); }
+}
+
+/* Ogiltigt fält: röd ram plus en kort skakning, så att felet märks även om
+   blicken är någon annanstans i formuläret. */
+.field.invalid input,
+.field.invalid textarea,
+.field.invalid .combo-display {
+  border-color: #c8453a;
+  background: #fff5f3;
+  box-shadow: 0 0 0 4px rgba(200, 69, 58, .12);
+  animation: field-shake .45s var(--ease-out);
+}
+
+.hint {
+  margin-top: .42rem;
+  color: var(--muted);
+  font-size: .8rem;
+  line-height: 1.5;
+}
+.error {
+  margin-top: .38rem;
+  color: #b23a2a;
+  font-size: .83rem;
+  font-weight: 700;
+  line-height: 1.45;
+}
+.error:empty { display: none; }
+/* Felmeddelandet studsar in i stället för att bara dyka upp. */
+.error:not(:empty) { animation: reveal-pop .4s var(--ease-spring) both; }
+
+.form-status {
+  margin: 1.05rem 0 0;
+  font-size: .95rem;
+  font-weight: 700;
+  line-height: 1.6;
+}
+.form-status.ok { color: var(--mint-dark); }
+.form-status.fail { color: #b23a2a; }
+.form-status a { color: var(--clay-dark); text-decoration: underline; }
+
+/* Svaret från formuläret (och områdeskontrollen) tonar in med ett litet
+   studs, så att bekräftelsen känns som ett svar och inte som ny text. */
+.form-status.ok,
+.form-status.fail,
+.area-result.ok,
+.area-result.fail { animation: reveal-pop .5s var(--ease-spring) both; }
+
+/* Den finstilta raden om personuppgifterna ska ha tydlig luft nedåt, så att den
+   inte ligger dikt an mot knappen "Skicka bokningsförfrågan". */
+.form-fineprint {
+  margin: 1.1rem 0 1.75rem;
+  color: var(--muted);
+  font-size: .79rem;
+  line-height: 1.65;
+}
+
+/* Nödluckan under formuläret: reservvägar (kopiera uppgifterna, WhatsApp, SMS,
+   ring) som alltid finns kvar, så att förfrågan kan nå fram även om kundens
+   e-postprogram inte öppnas. Medvetet lågmäld – den stora knappen
+   "Skicka bokningsförfrågan" ska fortfarande vara huvudvägen. */
+.form-backup {
+  margin: 1.6rem 0 0;
+  padding: 1.1rem 1.15rem;
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--paper);
+}
+
+.form-backup-title {
+  font-size: .93rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.form-backup-lead {
+  margin-top: .35rem;
+  color: var(--muted);
+  font-size: .82rem;
+  line-height: 1.6;
+}
+
+/* Knapparna lägger sig sida vid sida när det finns plats och staplas annars,
+   så att de alltid går att träffa med tummen på mobilen. */
+.form-backup-actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(158px, 1fr));
+  gap: .55rem;
+  margin-top: .9rem;
+}
+
+.form-backup-note {
+  margin-top: .8rem;
+  color: var(--muted);
+  font-size: .82rem;
+  line-height: 1.55;
+}
+.form-backup-note:empty { display: none; }
+.form-backup-note.ok { color: var(--mint-dark); font-weight: 700; }
+.form-backup-note.fail { color: #b23a2a; font-weight: 700; }
+/* Kvittensen studsar in på samma sätt som formulärets andra svar. */
+.form-backup-note.ok,
+.form-backup-note.fail { animation: reveal-pop .5s var(--ease-spring) both; }
+
+/* Texten som visas om uppgifterna inte kan kopieras automatiskt – då kan
+   kunden markera den och kopiera själv. Ser ut som formulärets textrutor. */
+.form-backup-textarea {
+  width: 100%;
+  margin-top: .8rem;
+  padding: 13px 15px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--paper-2);
+  color: var(--ink);
+  font-size: .82rem;
+  line-height: 1.5;
+  resize: vertical;
+}
+.form-backup-textarea[hidden] { display: none; }
+.form-backup-textarea:focus {
+  outline: none;
+  border-color: var(--mint-dark);
+  box-shadow: 0 0 0 4px rgba(44, 144, 119, .14);
+}
+
+/* --------------------------------------------------------------------------
+   8. Egen förslagslista (combobox)
+   -------------------------------------------------------------------------- */
+.combo { position: relative; }
+.field .combo input { padding-right: 52px; }
+
+.combo-toggle {
+  position: absolute;
+  top: 50%;
+  right: 6px;
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition:
+    background-color var(--t-fast) var(--ease-out),
+    color var(--t-fast) var(--ease-out),
+    scale var(--t-base) var(--ease-spring);
+}
+.combo-toggle:hover { background: rgba(20, 17, 16, .07); color: var(--ink); scale: 1.08; }
+.combo-toggle svg { transition: rotate .42s var(--ease-spring); }
+.combo.open .combo-toggle { color: var(--mint-dark); }
+.combo.open .combo-toggle[data-combo-toggle="chevron"] svg { rotate: 180deg; }
+
+.combo-list {
+  position: absolute;
+  z-index: 40;
+  top: calc(100% + .5rem);
+  left: 0;
+  right: 0;
+  max-height: 272px;
+  overflow-y: auto;
+  /* Ingen scroll-studsning vidare till sidan när listan nått sitt slut, och
+     reserverat utrymme för rullningslisten så att raderna inte hoppar i sidled
+     när listen dyker upp vid många träffar. */
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  /* Mjuk tangentbordsstyrning: markeringen glider mellan raderna. */
+  scroll-behavior: smooth;
+  /* Utfällningen sker från fältet ovanför i stället för från mitten. */
+  transform-origin: top center;
+  margin: 0;
+  padding: .35rem;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--paper-2);
+  box-shadow: var(--shadow-md);
+  display: none;
+}
+.combo.open .combo-list {
+  display: block;
+  animation: menu-in .34s var(--ease-spring) both;
+}
+.combo-list li {
+  position: relative;
+  overflow: hidden;
+  /* Egen staplingskontext, så att klickringeln hamnar ovanpå radens
+     bakgrund men under texten. */
+  isolation: isolate;
+  padding: .55rem .8rem;
+  border-radius: 10px;
+  font-size: .93rem;
+  line-height: 1.5;
+  color: var(--ink-2);
+  cursor: pointer;
+  transition:
+    background-color var(--t-fast) var(--ease-out),
+    color var(--t-fast) var(--ease-out),
+    translate var(--t-base) var(--ease-spring);
+}
+/* Den valda raden glider en aning åt sidan – lätt att följa med blicken. */
+.combo-list li:hover,
+.combo-list li.is-active { background: var(--mint-soft); color: var(--forest); translate: 3px 0; }
+.combo-list li.is-selected {
+  background: var(--mint);
+  color: var(--forest);
+  font-weight: 800;
+}
+.combo-list li.combo-empty { color: var(--muted-2); cursor: default; }
+.combo-list li.combo-empty:hover { background: transparent; color: var(--muted-2); }
+
+/* --- Anpassad rullista (döljer webbläsarens <select>) --- */
+.field .combo-native {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  opacity: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.combo-display {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 13px 52px 13px 15px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--paper);
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color var(--t-fast) var(--ease-out),
+    box-shadow .3s var(--ease-out),
+    background-color var(--t-fast) var(--ease-out);
+}
+.combo-display .combo-value {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.combo-select.is-empty .combo-value { color: var(--muted-2); }
+.combo-select.open .combo-display {
+  border-color: var(--mint-dark);
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(44, 144, 119, .14);
+}
+.combo-display:disabled { opacity: .6; cursor: not-allowed; background: var(--paper-3); }
+.combo-select.is-disabled .combo-toggle { pointer-events: none; opacity: .5; }
+
+/* Områdesfältet i serviceområdes-sektionen har pillerform */
+.area-check-row .combo input {
+  width: 100%;
+  padding: 15px 52px 15px 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  background: var(--paper);
+  transition:
+    border-color var(--t-fast) var(--ease-out),
+    box-shadow .3s var(--ease-out),
+    background-color var(--t-fast) var(--ease-out);
+}
+.area-check-row .combo input:focus {
+  outline: none;
+  border-color: var(--mint-dark);
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(44, 144, 119, .14);
+}
+.area-check-row .combo input::placeholder { color: var(--muted-2); }
+
+/* --------------------------------------------------------------------------
+   9. Datumväljare
+   -------------------------------------------------------------------------- */
+.datepicker {
+  position: absolute;
+  z-index: 40;
+  top: calc(100% + .5rem);
+  left: 0;
+  width: min(304px, calc(100vw - 56px));
+  padding: .9rem;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--paper-2);
+  box-shadow: var(--shadow-md);
+  transform-origin: top center;
+  display: none;
+}
+.combo.open .datepicker {
+  display: block;
+  animation: menu-in .34s var(--ease-spring) both;
+}
+
+.dp-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .5rem;
+  margin-bottom: .7rem;
+}
+.dp-title {
+  font-family: var(--font-display);
+  font-size: .98rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  color: var(--ink);
+}
+.dp-nav {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background-color var(--t-fast) var(--ease-out),
+    border-color var(--t-fast) var(--ease-out),
+    color var(--t-fast) var(--ease-out),
+    scale var(--t-base) var(--ease-spring);
+}
+.dp-nav:hover:not(:disabled) {
+  background: var(--mint-soft);
+  border-color: rgba(44, 144, 119, .35);
+  color: var(--mint-dark);
+  scale: 1.1;
+}
+.dp-nav:active:not(:disabled) { scale: .95; }
+.dp-nav:disabled { opacity: .35; cursor: not-allowed; }
+
+.dp-weekdays,
+.dp-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
+.dp-weekdays { margin-bottom: .35rem; }
+.dp-weekdays span {
+  text-align: center;
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--muted-2);
+}
+
+.dp-day {
+  position: relative;
+  overflow: hidden;
+  /* Egen staplingskontext så att klickringeln hamnar ovanpå dagsrutan. */
+  isolation: isolate;
+  display: grid;
+  place-items: center;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--ink-2);
+  font-size: .89rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color var(--t-fast) var(--ease-out),
+    color var(--t-fast) var(--ease-out),
+    scale var(--t-base) var(--ease-spring);
+}
+.dp-day:hover:not(:disabled) { background: var(--mint-soft); color: var(--forest); scale: 1.14; }
+.dp-day:active:not(:disabled) { scale: .96; }
+.dp-day:disabled { color: #c8c0b3; cursor: not-allowed; }
+.dp-day.is-selected,
+.dp-day.is-selected:hover { background: var(--clay); color: #fff; font-weight: 800; scale: 1.04; }
+.dp-blank { height: 36px; }
+
+/* --------------------------------------------------------------------------
+   10. Sidopanel i bokningen
+   -------------------------------------------------------------------------- */
+.booking-aside {
+  display: grid;
+  gap: clamp(.9rem, 1.6vw, 1.15rem);
+  position: sticky;
+  top: calc(var(--header-h) + 24px);
+}
+
+.aside-card {
+  padding: clamp(1.2rem, 2vw, 1.55rem);
+  border: 1px solid rgba(236, 244, 240, .14);
+  border-radius: var(--radius-lg);
+  background: rgba(236, 244, 240, .05);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  transition:
+    border-color var(--t-base) var(--ease-out),
+    background-color var(--t-base) var(--ease-out),
+    translate var(--t-base) var(--ease-spring),
+    box-shadow var(--t-base) var(--ease-out);
+}
+.aside-card:hover {
+  translate: 0 -4px;
+  border-color: rgba(236, 244, 240, .28);
+  background: rgba(236, 244, 240, .08);
+  box-shadow: 0 26px 60px -30px rgba(0, 0, 0, .7);
+}
+.aside-card h3 {
+  margin-bottom: .6rem;
+  font-size: 1.04rem;
+  color: #fff;
+}
+.aside-card p {
+  color: var(--on-dark-mut);
+  font-size: .92rem;
+  line-height: 1.64;
+}
+.aside-card-accent {
+  border-color: rgba(140, 217, 196, .34);
+  background: linear-gradient(150deg, rgba(140, 217, 196, .17), rgba(236, 244, 240, .04));
+}
+.aside-contact { margin-top: .6rem; line-height: 1.85; }
+.aside-contact a { color: var(--mint); font-weight: 700; }
+.aside-contact a:hover { color: #fff; }
+
+.hours li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: .38rem 0;
+  border-bottom: 1px dashed rgba(236, 244, 240, .14);
+  color: var(--on-dark-mut);
+  font-size: .92rem;
+  line-height: 1.6;
+}
+.hours li:last-child { border-bottom: 0; }
+.hours-note {
+  margin: .85rem 0 0;
+  color: rgba(163, 189, 181, .8);
+  font-size: .84rem;
+  line-height: 1.55;
+}
+
+/* --------------------------------------------------------------------------
+   11. Responsivt
+   -------------------------------------------------------------------------- */
+@media (max-width: 1080px) {
+  .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .booking-aside { position: static; }
+}
+
+@media (max-width: 860px) {
+  .steps { grid-template-columns: 1fr; gap: 1.9rem; }
+  .steps-line { display: none; }
+  .step { text-align: left; padding-left: 4.6rem; min-height: 54px; }
+  .step-num { position: absolute; left: 0; top: 0; margin: 0; }
+}
+
+@media (max-width: 760px) {
+  .form-row { grid-template-columns: 1fr; gap: 0; }
+}
+
+@media (max-width: 640px) {
+  .cards { grid-template-columns: 1fr; }
+  .price-banner { grid-template-columns: 1fr; gap: 1.1rem; }
+  .price-main {
+    padding-right: 0;
+    padding-bottom: 1.1rem;
+    border-right: 0;
+    border-bottom: 1px solid rgba(192, 92, 58, .22);
+  }
+  .stat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* --------------------------------------------------------------------------
+   12. Lediga tider, konto och ägarpanel
+   Flikarna delar samma panel: besökaren ser lediga/bokade tider, ägarkontot
+   loggar in och får då en tredje flik där tiderna kan markeras. Färgerna
+   följer husets mint (ledig) och lera (bokad) och alla tokens kommer från
+   base.css.
+   -------------------------------------------------------------------------- */
+.slot-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .35rem;
+  width: max-content;
+  max-width: 100%;
+  margin: 0 auto clamp(26px, 3vw, 40px);
+  padding: .34rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  background: var(--paper-2);
+  box-shadow: var(--shadow-xs);
+}
+
+.slot-tab {
+  padding: .58rem 1.15rem;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--muted);
+  font-size: .93rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: color var(--t-fast) var(--ease-out),
+              background-color var(--t-fast) var(--ease-out),
+              box-shadow var(--t-fast) var(--ease-out);
+}
+.slot-tab:hover { color: var(--ink); }
+.slot-tab:focus-visible { outline: 2px solid var(--mint-dark); outline-offset: 2px; }
+.slot-tab.is-active {
+  background: var(--forest);
+  color: var(--on-dark);
+  box-shadow: var(--shadow-sm);
+}
+.slot-tab[hidden] { display: none; }
+
+.slot-panel[hidden] { display: none; }
+
+/* Skrollankaret: flikytan byts ut på plats – listan över lediga tider ritas om
+   varje minut och panelerna är olika höga. Utan det här flyttar webbläsaren
+   ibland vyn själv för att hålla kvar en rad som försvinner, och besökaren ser
+   att sidan "åker upp". Flikytan och listorna får därför inte vara ankare. */
+.slot-tabs,
+.slot-panel,
+.slot-days,
+.owner-days,
+.owner-hours,
+.owner-bookings {
+  overflow-anchor: none;
+}
+
+/* Verktygsraden ovanför listan. */
+.slot-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .85rem 1.2rem;
+  margin-bottom: 1.3rem;
+}
+.slot-legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.1rem;
+  margin: 0;
+}
+.slot-key {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  color: var(--muted);
+  font-size: .87rem;
+  font-weight: 700;
+  letter-spacing: .01em;
+}
+.slot-key i {
+  width: 11px;
+  height: 11px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--mint);
+  box-shadow: 0 0 0 3px var(--mint-soft);
+}
+.slot-key--busy i { background: var(--clay); box-shadow: 0 0 0 3px var(--clay-soft); }
+
+/* Statusraden (som skärmläsaren läser upp) och den tysta raden med klockslaget
+   står intill varandra till höger. En tom rad tar ingen plats alls, och
+   punkten mellan dem ritas bara när båda har något att säga. */
+.slot-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: .3rem .55rem;
+  margin-left: auto;
+  text-align: right;
+}
+
+/* Pricken framför statusraden: grön och stilla när listan är kopplad till
+   bokningsservern, gul och sökande medan sajten kopplar upp sig igen, grå
+   medan listan visar ordinarie öppettider. Texten bredvid säger samma sak –
+   pricken gör det bara möjligt att se det med en blick. */
+.slot-dot {
+  flex: none;
+  align-self: center;
+  width: .5rem;
+  height: .5rem;
+  border-radius: 50%;
+  background: var(--muted-2);
+  transition: background-color var(--t-fast) var(--ease-out);
+}
+.slot-dot.is-live { background: var(--mint-dark); }
+.slot-dot.is-sync { background: var(--clay); }
+.slot-updated,
+.slot-age {
+  margin: 0;
+  color: var(--muted-2);
+  font-size: .82rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.5;
+}
+.slot-updated:empty,
+.slot-age:empty { display: none; }
+.slot-updated:not(:empty) + .slot-age:not(:empty)::before {
+  content: "\00b7";
+  margin-right: .5rem;
+  color: var(--line-strong);
+}
+/* Medan bokningsservern startar står förklaringen där klockslaget annars står. */
+.slot-age.is-hint { color: var(--clay-dark); font-weight: 600; }
+/* Servern svarade inte: texten ovan listan ska synas, så att ingen tror att
+   tiderna är kontrollerade mot bokningarna. */
+.slot-updated.is-warning {
+  color: var(--clay-dark);
+  font-weight: 600;
+}
+
+/* Uppdatera-knappen. Pilen snurrar medan svaret är på väg och knappen lyser
+   till när svaret har kommit, så att ett klick alltid kvitteras. */
+.slot-refresh { gap: .45rem; }
+.slot-refresh-icon { display: inline-flex; transition: color var(--t-fast) var(--ease-out); }
+.slot-refresh.is-busy .slot-refresh-icon { animation: slot-refresh-spin .9s linear infinite; }
+.slot-refresh.is-busy { cursor: progress; }
+.slot-refresh.is-done {
+  border-color: var(--mint-dark);
+  background: var(--mint-soft);
+  color: var(--forest-3);
+}
+.slot-refresh.is-done .slot-refresh-icon {
+  color: var(--mint-dark);
+  animation: slot-btn-pop .34s var(--ease-spring);
+}
+
+/* Platshållarna medan de bokade tiderna hämtas: korta skimrande kort i samma
+   storlek som dagkorten, så att listan får rätt höjd direkt. */
+.slot-skeleton {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(258px, 1fr));
+  gap: 1rem;
+}
+.slot-skeleton-card {
+  height: 126px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background-color: var(--paper-2);
+  background-image:
+    linear-gradient(90deg, var(--line), var(--line)),
+    linear-gradient(90deg, var(--line), var(--line)),
+    linear-gradient(90deg, var(--line), var(--line)),
+    linear-gradient(100deg, rgba(255, 255, 255, 0) 35%, rgba(255, 255, 255, .8) 50%, rgba(255, 255, 255, 0) 65%);
+  background-repeat: no-repeat;
+  background-size: 42% .72rem, 30% .72rem, 66% .72rem, 60% 100%;
+  background-position: 1.1rem 1.1rem, 1.1rem 2.5rem, 1.1rem 3.9rem, -80% 0;
+  box-shadow: var(--shadow-xs);
+}
+.slot-days.is-loading .slot-skeleton-card {
+  animation: slot-skeleton-sweep 1.6s var(--ease-in-out) infinite;
+}
+.slot-loading {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--muted-2);
+  font-size: .89rem;
+  text-align: center;
+}
+
+/* En tid som bytte läge vid en uppdatering blinkar till en gång, så att
+   ändringen syns även när svaret kom på en millisekund. */
+.slot-time.is-flash { animation: slot-time-flash 1.4s var(--ease-out); }
+.slot-time--busy.is-flash { animation-name: slot-time-flash-busy; }
+
+/* De två veckorna. */
+.slot-days {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(258px, 1fr));
+  gap: 1rem;
+}
+.slot-day {
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+  padding: 1.05rem 1.1rem 1.15rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--paper-2);
+  box-shadow: var(--shadow-xs);
+}
+.slot-day--today {
+  border-color: var(--mint-dark);
+  box-shadow: var(--shadow-sm), inset 0 0 0 1px rgba(44, 144, 119, .18);
+}
+.slot-day-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: .5rem;
+}
+.slot-day-name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.06rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+.slot-day-count {
+  flex: none;
+  color: var(--muted-2);
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.slot-times {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .42rem;
+}
+.slot-time {
+  padding: .38rem .72rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: var(--paper);
+  color: var(--muted);
+  font-size: .86rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  cursor: default;
+}
+button.slot-time { cursor: pointer; }
+button.slot-time:hover {
+  border-color: var(--mint-dark);
+  background: var(--mint-soft);
+  color: var(--forest);
+}
+button.slot-time:focus-visible { outline: 2px solid var(--mint-dark); outline-offset: 2px; }
+.slot-time--free {
+  border-color: rgba(44, 144, 119, .45);
+  background: var(--mint-soft);
+  color: var(--forest-3);
+}
+.slot-time--busy {
+  border-color: rgba(192, 92, 58, .35);
+  background: rgba(242, 216, 204, .5);
+  color: var(--clay-dark);
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+}
+.slot-empty,
+.slot-note {
+  margin: 0;
+  color: var(--muted);
+  font-size: .9rem;
+  line-height: 1.65;
+}
+.slot-empty { grid-column: 1 / -1; }
+.slot-note { margin-top: 1.4rem; }
+.slot-note a { color: var(--clay); text-decoration: underline; }
+
+/* Inloggningskortet (flik 2). */
+.account-card {
+  max-width: 540px;
+  margin: 0 auto;
+  padding: clamp(1.5rem, 3vw, 2.3rem);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  background: var(--paper-2);
+  box-shadow: var(--shadow-sm);
+}
+.account-title {
+  margin: 0 0 .5rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2.2vw, 1.7rem);
+  font-weight: 600;
+}
+.account-lead,
+.account-foot {
+  margin: 0 0 1.4rem;
+  color: var(--muted);
+  font-size: .93rem;
+  line-height: 1.65;
+}
+.account-foot {
+  margin: 1.4rem 0 0;
+  padding-top: 1.1rem;
+  border-top: 1px dashed var(--line-strong);
+  font-size: .87rem;
+}
+.account-foot a { color: var(--clay); }
+.account-form .field { margin-bottom: 1rem; }
+.account-form label {
+  display: block;
+  margin-bottom: .4rem;
+  font-size: .87rem;
+  font-weight: 700;
+}
+.account-form input {
+  width: 100%;
+  padding: .75rem .95rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: var(--paper);
+  transition: border-color var(--t-fast) var(--ease-out),
+              box-shadow var(--t-fast) var(--ease-out);
+}
+.account-form input:focus {
+  outline: 0;
+  border-color: var(--mint-dark);
+  box-shadow: 0 0 0 4px rgba(140, 217, 196, .35);
+}
+.account-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .7rem;
+}
+
+/* Utloggningen ligger under inloggningskortet och skiljs av med en tunn linje,
+   så att den inte förväxlas med inloggningsknappen. */
+.account-actions--out {
+  margin-top: 1.2rem;
+  padding-top: 1.1rem;
+  border-top: 1px dashed var(--line-strong);
+}
+.account-msg,
+.owner-msg {
+  margin: 0 0 1rem;
+  min-height: 1.2em;
+  color: var(--muted);
+  font-size: .89rem;
+  line-height: 1.55;
+}
+.account-msg:empty,
+.owner-msg:empty { margin-bottom: 0; }
+.account-msg.ok,
+.owner-msg.ok { color: var(--mint-dark); font-weight: 600; }
+.account-msg.fail,
+.owner-msg.fail { color: var(--clay-dark); font-weight: 600; }
+
+/* Ägarpanelen (flik 3). */
+/* Ägarpanelens huvud: rubriken till vänster och utloggningen till höger, så
+   att utloggningen finns inom räckhåll även när panelen är lång. */
+.owner-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: .9rem 1.2rem;
+  margin-bottom: 1.4rem;
+}
+.owner-head-text { max-width: 720px; }
+.owner-logout { flex: none; }
+.owner-title {
+  margin: 0 0 .4rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 2.1vw, 1.6rem);
+  font-weight: 600;
+}
+.owner-lead {
+  max-width: 720px;
+  margin: 0;
+  color: var(--muted);
+  font-size: .93rem;
+  line-height: 1.65;
+}
+.owner-days {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .45rem;
+  margin-bottom: 1.3rem;
+}
+.owner-day-btn {
+  padding: .48rem .85rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-pill);
+  background: var(--paper-2);
+  color: var(--muted);
+  font-size: .85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color var(--t-fast) var(--ease-out),
+              background-color var(--t-fast) var(--ease-out),
+              color var(--t-fast) var(--ease-out);
+}
+.owner-day-btn:hover { border-color: var(--forest-3); color: var(--ink); }
+.owner-day-btn:focus-visible { outline: 2px solid var(--mint-dark); outline-offset: 2px; }
+.owner-day-btn.is-active {
+  border-color: var(--forest);
+  background: var(--forest);
+  color: var(--on-dark);
+}
+.owner-day-btn .owner-day-dot {
+  display: inline-block;
+  width: .42rem;
+  height: .42rem;
+  margin-left: .4rem;
+  border-radius: 50%;
+  background: var(--clay);
+  vertical-align: middle;
+}
+.owner-day-btn.is-active .owner-day-dot { background: var(--sun); }
+.owner-day {
+  margin: 0 0 .9rem;
+  font-family: var(--font-display);
+  font-size: 1.12rem;
+  font-weight: 600;
+}
+.owner-hours {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(108px, 1fr));
+  gap: .5rem;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--paper-2);
+  box-shadow: var(--shadow-xs);
+}
+.owner-hour {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .4rem;
+  padding: .6rem .5rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: var(--paper);
+  color: var(--muted);
+  font-size: .88rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  transition: transform var(--t-fast) var(--ease-spring),
+              border-color var(--t-fast) var(--ease-out),
+              background-color var(--t-fast) var(--ease-out),
+              color var(--t-fast) var(--ease-out);
+}
+.owner-hour:hover { transform: translateY(-1px); border-color: var(--forest-3); }
+.owner-hour:focus-visible { outline: 2px solid var(--mint-dark); outline-offset: 2px; }
+.owner-hour--free {
+  border-color: rgba(44, 144, 119, .45);
+  background: var(--mint-soft);
+  color: var(--forest-3);
+}
+.owner-hour--extra { border-style: dashed; }
+.owner-hour--busy {
+  border-color: rgba(192, 92, 58, .35);
+  background: rgba(242, 216, 204, .5);
+  color: var(--clay-dark);
+}
+.owner-hour--locked {
+  cursor: not-allowed;
+  border-color: rgba(192, 92, 58, .55);
+  background: rgba(242, 216, 204, .85);
+  color: var(--clay-dark);
+  font-weight: 700;
+}
+.owner-hour[disabled] { opacity: 1; }
+.owner-hour small {
+  display: block;
+  color: inherit;
+  font-size: .7rem;
+  font-weight: 600;
+  opacity: .85;
+}
+.owner-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .7rem;
+  margin-top: 1.25rem;
+}
+.owner-msg { margin-top: 1.1rem; }
+.owner-bookings {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.owner-bookings li {
+  padding: .55rem 0;
+  border-bottom: 1px dashed var(--line-strong);
+  color: var(--ink-2);
+  font-size: .89rem;
+  line-height: 1.55;
+}
+.owner-bookings li:last-child { border-bottom: 0; }
+.owner-bookings strong { font-weight: 700; }
+
+/* En kundbokning: texten till vänster och snabbknapparna Godkänn/Neka till
+   höger. På smala skärmar hamnar knapparna under texten i stället. */
+.owner-booking {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: .45rem .9rem;
+}
+.owner-booking-what { flex: 1 1 auto; }
+.owner-booking-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+}
+
+/* Pekskärm: tider, flikar och småknappar ska gå att träffa utan att sikta. */
+@media (pointer: coarse) {
+  .slot-time { padding: .58rem .95rem; font-size: .92rem; }
+  .slot-tab { padding: .72rem 1.25rem; }
+  .btn-sm { min-height: 44px; padding: 12px 20px; }
+  .owner-day-btn { min-height: 42px; padding: .62rem 1rem; }
+  .owner-hour { min-height: 48px; }
+}
+
+@media (max-width: 640px) {
+  /* Flikarna fyller raden och verktygsraden lägger sig i två våningar, med
+     Uppdatera-knappen i full bredd längst ned – lätt att träffa med tummen. */
+  .slot-tabs { width: 100%; justify-content: center; }
+  .slot-tab { flex: 1 1 auto; text-align: center; }
+  .slot-toolbar { gap: .55rem 1rem; }
+  .slot-meta {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .1rem .5rem;
+    width: 100%;
+    margin-left: 0;
+    text-align: left;
+  }
+  /* Klockslaget får en egen rad under pricken och beskedet. */
+  .slot-age { flex-basis: 100%; }
+  .slot-updated:not(:empty) + .slot-age:not(:empty)::before { content: none; }
+  .slot-refresh { width: 100%; }
+  .slot-days,
+  .slot-skeleton { grid-template-columns: 1fr; }
+  /* Dagknapparna i ägarpanelen skrollas i sidled i stället för att bli fyra
+     rader höga på en telefon. */
+  .owner-days {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: .5rem;
+    scroll-snap-type: x proximity;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+  }
+  .owner-day-btn { flex: none; scroll-snap-align: start; }
+  .owner-hours { grid-template-columns: repeat(auto-fill, minmax(88px, 1fr)); }
+}

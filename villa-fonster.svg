@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 680" role="img" aria-label="Nypolerat fönster på en villavägg med utsikt mot grönska">
+  <defs>
+    <linearGradient id="wall3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f3ebde"/>
+      <stop offset="1" stop-color="#e2d6c2"/>
+    </linearGradient>
+    <linearGradient id="glass3" x1="0" y1="0" x2="0.3" y2="1">
+      <stop offset="0" stop-color="#d3ebf7"/>
+      <stop offset="0.45" stop-color="#a8cddf"/>
+      <stop offset="0.75" stop-color="#8fb9c9"/>
+      <stop offset="1" stop-color="#7fae86"/>
+    </linearGradient>
+    <linearGradient id="sill3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#e6ddd0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="900" height="680" fill="url(#wall3)"/>
+  <g stroke="#d8c9b2" stroke-width="3" opacity="0.55">
+    <line x1="0" y1="54" x2="900" y2="54"/>
+    <line x1="0" y1="108" x2="900" y2="108"/>
+    <line x1="0" y1="612" x2="900" y2="612"/>
+    <line x1="0" y1="648" x2="900" y2="648"/>
+  </g>
+
+  <!-- fönsterram -->
+  <rect x="86" y="104" width="728" height="474" rx="10" fill="#ffffff"/>
+  <rect x="104" y="122" width="692" height="438" rx="6" fill="#f4efe6"/>
+
+  <!-- glas -->
+  <rect x="118" y="136" width="664" height="410" rx="4" fill="url(#glass3)"/>
+
+  <!-- reflektioner -->
+  <polygon points="140,136 320,136 180,546 118,546 118,470" fill="#ffffff" opacity="0.20"/>
+  <polygon points="470,136 560,136 420,546 340,546" fill="#ffffff" opacity="0.13"/>
+  <ellipse cx="700" cy="520" rx="150" ry="120" fill="#6f9a63" opacity="0.30"/>
+  <ellipse cx="240" cy="540" rx="170" ry="110" fill="#7dab6f" opacity="0.22"/>
+
+  <!-- spröjs -->
+  <rect x="470" y="136" width="14" height="410" fill="#ffffff"/>
+  <rect x="118" y="330" width="664" height="14" fill="#ffffff"/>
+
+  <!-- glans -->
+  <g fill="#ffffff">
+    <path d="M300,236 L306,262 L332,268 L306,274 L300,300 L294,274 L268,268 L294,262 Z" opacity="0.95"/>
+    <path d="M628,392 L632,410 L650,414 L632,418 L628,436 L624,418 L606,414 L624,410 Z" opacity="0.85"/>
+    <path d="M214,452 L217,465 L230,468 L217,471 L214,484 L211,471 L198,468 L211,465 Z" opacity="0.75"/>
+    <path d="M672,196 L675,209 L688,212 L675,215 L672,228 L669,215 L656,212 L669,209 Z" opacity="0.7"/>
+  </g>
+
+  <!-- fönsterbleck -->
+  <rect x="66" y="578" width="768" height="22" rx="6" fill="url(#sill3)"/>
+  <rect x="66" y="600" width="768" height="10" rx="4" fill="#d9cdba"/>
+
+  <!-- kruka -->
+  <rect x="700" y="540" width="86" height="40" rx="8" fill="#b4624a"/>
+  <g fill="#6f9a63">
+    <ellipse cx="743" cy="522" rx="40" ry="26"/>
+    <ellipse cx="712" cy="534" rx="26" ry="18"/>
+    <ellipse cx="776" cy="534" rx="24" ry="17"/>
+  </g>
+</svg>

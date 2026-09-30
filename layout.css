@@ -1,0 +1,863 @@
+/* ==========================================================================
+   Jakobs HusFix — layout.css
+   Sidans skal: header, hero, band, footer och "till toppen".
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Header
+   -------------------------------------------------------------------------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  height: var(--header-h);
+  display: flex;
+  align-items: center;
+  background: transparent;
+  color: var(--on-dark);
+  transition:
+    background-color .5s var(--ease-out),
+    box-shadow .5s var(--ease-out),
+    border-color .5s var(--ease-out),
+    color var(--t-base) var(--ease-out);
+  border-bottom: 1px solid transparent;
+}
+
+/* Över den mörka heron är headern genomskinlig med ljus text. */
+.site-header .brand { color: var(--on-dark); }
+.site-header .brand-text strong { color: var(--mint); }
+.site-header .primary-nav a:not(.btn) { color: var(--on-dark); }
+.site-header .nav-toggle span { background: var(--on-dark); }
+
+/* När sidan scrollats blir headern en ljus, mjuk glasyta. */
+.site-header.is-scrolled {
+  background: rgba(247, 243, 234, .86);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+  backdrop-filter: blur(18px) saturate(150%);
+  border-bottom-color: var(--line);
+  box-shadow: 0 12px 40px -28px rgba(20, 17, 16, .45);
+  color: var(--ink);
+}
+.site-header.is-scrolled .brand { color: var(--ink); }
+.site-header.is-scrolled .brand-text strong { color: var(--clay); }
+.site-header.is-scrolled .primary-nav a:not(.btn) { color: var(--ink-2); }
+.site-header.is-scrolled .nav-toggle span { background: var(--ink); }
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+/* --- Varumärke --- */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: .7rem;
+  flex: none;
+  font-family: var(--font-display);
+  font-size: 1.28rem;
+  font-weight: 600;
+  letter-spacing: -.02em;
+  transition: color var(--t-base) var(--ease-out);
+}
+.brand:hover { text-decoration: none; }
+
+.brand-logo {
+  display: block;
+  width: 42px;
+  height: 42px;
+  border-radius: 13px;
+  object-fit: cover;
+  background: var(--forest-2);
+  box-shadow: 0 0 0 1px rgba(236, 244, 240, .22), 0 6px 18px -8px rgba(0, 0, 0, .6);
+  transition: transform .6s var(--ease-spring), box-shadow .5s var(--ease-out);
+}
+.brand:hover .brand-logo { transform: rotate(-7deg) scale(1.09); }
+.site-header.is-scrolled .brand-logo {
+  box-shadow: 0 0 0 1px rgba(20, 17, 16, .10), var(--shadow-sm);
+}
+
+.brand-text { white-space: nowrap; }
+.brand-text strong { font-weight: 600; font-style: italic; }
+
+/* --- Navigation --- */
+.primary-nav ul {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.primary-nav a:not(.btn) {
+  position: relative;
+  display: inline-block;
+  padding: .35rem 0;
+  font-size: .93rem;
+  font-weight: 700;
+  letter-spacing: .002em;
+  transition:
+    color var(--t-fast) var(--ease-out),
+    opacity var(--t-fast) var(--ease-out),
+    translate var(--t-base) var(--ease-spring);
+}
+.primary-nav a:not(.btn):hover { text-decoration: none; translate: 0 -1px; }
+
+/* Animerad understrykning som växer från vänster */
+.primary-nav a:not(.btn)::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1.5px;
+  border-radius: 2px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .45s var(--ease-spring);
+}
+.primary-nav a:not(.btn):hover::after,
+.primary-nav a:not(.btn).is-active::after { transform: scaleX(1); }
+
+.site-header .primary-nav a:not(.btn).is-active { color: var(--mint); }
+.site-header.is-scrolled .primary-nav a:not(.btn).is-active { color: var(--clay); }
+
+/* --- Hamburgare --- */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  cursor: pointer;
+}
+.nav-toggle span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  margin: 0 auto;
+  border-radius: 2px;
+  transition: transform .38s var(--ease-spring), opacity var(--t-fast) var(--ease-out);
+}
+.nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* --------------------------------------------------------------------------
+   2. Hero
+   -------------------------------------------------------------------------- */
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: min(100svh, 940px);
+  margin-top: calc(var(--header-h) * -1);
+  padding: calc(var(--header-h) + clamp(48px, 7vw, 96px)) 0 clamp(64px, 8vw, 110px);
+  background: var(--forest);
+  color: var(--on-dark);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* --- Bakgrundslager --- */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.hero-photo {
+  position: absolute;
+  inset: -8% -3%;
+  background: url("../images/hero-house.jpg") center / cover no-repeat;
+  opacity: .38;
+  filter: saturate(.9) contrast(1.04);
+  will-change: transform;
+}
+
+/* Mörk ton + varm glöd i hörnet */
+.hero-tone {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(90% 70% at 82% 4%, rgba(140, 217, 196, .22), transparent 60%),
+    radial-gradient(70% 60% at 8% 96%, rgba(192, 92, 58, .22), transparent 62%),
+    linear-gradient(180deg, rgba(14, 30, 25, .90) 0%, rgba(14, 30, 25, .78) 42%, rgba(14, 30, 25, .97) 100%);
+}
+
+/* Spröjs-raster: anspelar på fönster */
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(236, 244, 240, .07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(236, 244, 240, .07) 1px, transparent 1px);
+  background-size: 96px 96px;
+  -webkit-mask-image: radial-gradient(130% 105% at 50% 0%, #000 26%, transparent 80%);
+  mask-image: radial-gradient(130% 105% at 50% 0%, #000 26%, transparent 80%);
+}
+
+/* Ljusa strimmor som driver långsamt över bilden */
+.hero-streak {
+  position: absolute;
+  top: -40%;
+  height: 180%;
+  width: 190px;
+  background: linear-gradient(90deg, transparent, rgba(236, 244, 240, .12), transparent);
+  transform: rotate(16deg);
+  filter: blur(3px);
+  will-change: transform;
+}
+.hero-streak--1 { left: 6%; animation: streak-drift 22s var(--ease-in-out) infinite alternate; }
+.hero-streak--2 { left: 52%; animation: streak-drift 31s var(--ease-in-out) infinite alternate 3s; opacity: .7; }
+
+/* --- Innehåll --- */
+.hero-inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.06fr) minmax(0, .94fr);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4.5rem);
+}
+
+.hero-title {
+  margin: 0 0 1.4rem;
+  color: #fff;
+  max-width: 15ch;
+}
+.hero-title em { color: var(--mint); }
+
+.hero-lead {
+  max-width: 52ch;
+  color: #c9dbd5;
+  font-size: clamp(1rem, 1.25vw, 1.12rem);
+  line-height: 1.68;
+  margin-bottom: 1.9rem;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .8rem;
+  margin-bottom: 2.2rem;
+}
+
+/* Fyra trygghetspunkter i rutnät */
+.hero-points {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .85rem 1.6rem;
+  max-width: 560px;
+}
+.hero-points li {
+  position: relative;
+  padding-left: 1.9rem;
+  color: #c9dbd5;
+  font-size: .93rem;
+  font-weight: 600;
+  line-height: 1.5;
+  transition: color var(--t-fast) var(--ease-out), translate var(--t-base) var(--ease-spring);
+}
+.hero-points li:hover { color: #fff; translate: 3px 0; }
+.hero-points li svg {
+  position: absolute;
+  left: 0;
+  top: .18em;
+  width: 17px;
+  height: 17px;
+  color: var(--mint);
+  transition: scale var(--t-base) var(--ease-spring), color var(--t-base) var(--ease-out);
+}
+.hero-points li:hover svg { scale: 1.22; }
+
+/* --- Glasskortet --- */
+.hero-card-wrap { position: relative; }
+
+.hero-card-glow {
+  position: absolute;
+  inset: 12% -8% -14% -8%;
+  z-index: -1;
+  background: radial-gradient(60% 60% at 50% 50%, rgba(140, 217, 196, .34), transparent 70%);
+  filter: blur(28px);
+  pointer-events: none;
+  /* Glöden andas långsamt bakom glaskortet. */
+  animation: glow-breathe 7.5s var(--ease-in-out) infinite alternate;
+}
+
+.hero-card {
+  position: relative;
+  padding: clamp(22px, 2.4vw, 32px);
+  border: 1px solid rgba(236, 244, 240, .17);
+  border-radius: var(--radius-xl);
+  background: rgba(236, 244, 240, .065);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  backdrop-filter: blur(20px) saturate(140%);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  transition:
+    border-color var(--t-slow) var(--ease-out),
+    box-shadow var(--t-slow) var(--ease-out),
+    translate var(--t-slow) var(--ease-spring);
+}
+.hero-card:hover {
+  translate: 0 -4px;
+  border-color: rgba(236, 244, 240, .3);
+  box-shadow: var(--shadow-lg), 0 0 0 1px rgba(140, 217, 196, .16);
+}
+/* Ljussvep över glaset */
+.hero-card::before {
+  content: "";
+  position: absolute;
+  top: -60%;
+  left: -30%;
+  width: 60%;
+  height: 220%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .10), transparent);
+  transform: rotate(14deg);
+  animation: glass-sweep 7s var(--ease-in-out) infinite;
+  pointer-events: none;
+}
+
+.hero-card-head {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  margin-bottom: .35rem;
+}
+.hero-card-head .dot {
+  width: 9px;
+  height: 9px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--mint);
+  box-shadow: 0 0 0 5px rgba(140, 217, 196, .18);
+  animation: dot-pulse 2.4s var(--ease-in-out) infinite;
+}
+.hero-card-label {
+  font-size: .84rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--on-dark-mut);
+}
+
+.hero-card-big {
+  margin: .2rem 0 .3rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 2.6vw, 2.15rem);
+  font-weight: 600;
+  line-height: 1.14;
+  color: #fff;
+}
+
+.hero-card-divider {
+  height: 1px;
+  margin: 1.1rem 0 .9rem;
+  background: linear-gradient(90deg, rgba(236, 244, 240, .28), transparent);
+}
+
+.hero-card-rows { display: grid; gap: .1rem; }
+.hero-card-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: .62rem .7rem;
+  margin: 0 -.7rem;
+  border-radius: 10px;
+  transition: background-color var(--t-base) var(--ease-out), translate var(--t-base) var(--ease-spring);
+}
+.hero-card-row:hover { background: rgba(236, 244, 240, .07); translate: 4px 0; }
+.hero-card-row .hero-card-label { text-transform: none; letter-spacing: 0; font-weight: 600; }
+.hero-card-price {
+  flex: none;
+  font-family: var(--font-display);
+  font-size: 1.06rem;
+  font-weight: 600;
+  color: var(--mint);
+  white-space: nowrap;
+}
+
+.hero-card-foot {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  margin-top: 1.1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(236, 244, 240, .14);
+  font-size: .84rem;
+  font-weight: 600;
+  color: var(--on-dark-mut);
+}
+.hero-card-foot svg { width: 15px; height: 15px; color: var(--mint); flex: none; }
+
+/* --- Skrollhint --- */
+.hero-scroll {
+  position: absolute;
+  left: 50%;
+  bottom: 26px;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: rgba(236, 244, 240, .5);
+}
+.hero-scroll-line {
+  display: block;
+  width: 1px;
+  height: 34px;
+  background: linear-gradient(180deg, rgba(236, 244, 240, .6), transparent);
+  animation: scroll-hint 2.2s var(--ease-in-out) infinite;
+}
+/* --------------------------------------------------------------------------
+   3. Löpande band (marquee)
+   -------------------------------------------------------------------------- */
+.marquee {
+  position: relative;
+  overflow: hidden;
+  padding: 20px 0;
+  background: var(--forest-2);
+  color: var(--on-dark);
+  border-top: 1px solid rgba(236, 244, 240, .09);
+  border-bottom: 1px solid rgba(236, 244, 240, .09);
+}
+.marquee::before,
+.marquee::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: clamp(40px, 9vw, 120px);
+  z-index: 2;
+  pointer-events: none;
+}
+.marquee::before { left: 0; background: linear-gradient(90deg, var(--forest-2), transparent); }
+.marquee::after { right: 0; background: linear-gradient(270deg, var(--forest-2), transparent); }
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-x 40s linear infinite;
+}
+.marquee:hover .marquee-track { animation-play-state: paused; }
+
+.marquee-group {
+  display: flex;
+  align-items: center;
+  gap: 2.6rem;
+  padding-right: 2.6rem;
+}
+.marquee-item {
+  display: inline-flex;
+  align-items: center;
+  gap: .7rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.02rem, 1.7vw, 1.4rem);
+  font-weight: 600;
+  letter-spacing: -.01em;
+  color: #dfece7;
+  white-space: nowrap;
+  transition:
+    color var(--t-base) var(--ease-out),
+    opacity var(--t-base) var(--ease-out),
+    scale var(--t-base) var(--ease-spring);
+}
+.marquee-item em { font-style: italic; color: var(--mint); }
+/* När bandet stannar vid hover tonas allt utom raden under pekaren ned. */
+.marquee:hover .marquee-item { opacity: .45; }
+.marquee-item:hover { opacity: 1; color: #fff; scale: 1.03; }
+.marquee-sep {
+  width: 7px;
+  height: 7px;
+  flex: none;
+  border-radius: 1px;
+  background: var(--clay);
+  transform: rotate(45deg);
+  transition: transform .55s var(--ease-spring), background-color var(--t-base) var(--ease-out);
+}
+.marquee:hover .marquee-sep { transform: rotate(0deg) scale(1.3); background: var(--sun); }
+
+/* --------------------------------------------------------------------------
+   4. Trygghetsrad med räknare
+   -------------------------------------------------------------------------- */
+.trust-bar {
+  padding: clamp(44px, 5vw, 76px) 0;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+}
+.trust-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1.2rem, 3vw, 2.5rem);
+}
+.trust-item {
+  position: relative;
+  text-align: center;
+  padding: 0 .5rem;
+}
+.trust-item + .trust-item::before {
+  content: "";
+  position: absolute;
+  left: calc(clamp(1.2rem, 3vw, 2.5rem) / -2);
+  top: 14%;
+  bottom: 14%;
+  width: 1px;
+  background: var(--line);
+}
+.trust-num {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(2.1rem, 3.7vw, 3.2rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -.03em;
+  color: var(--ink);
+}
+.trust-num em { font-style: italic; color: var(--clay); }
+.trust-label {
+  display: block;
+  margin-top: .6rem;
+  font-size: .86rem;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+/* --------------------------------------------------------------------------
+   5. Sektionsrutnät
+   -------------------------------------------------------------------------- */
+.omrade-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: start;
+}
+.om-oss-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+}
+.book-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.42fr) minmax(0, .58fr);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  align-items: start;
+}
+
+/* --------------------------------------------------------------------------
+   6. Bildband
+   -------------------------------------------------------------------------- */
+.image-band {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(96px, 13vw, 190px) 0;
+  text-align: center;
+  color: var(--on-dark);
+  background: var(--forest);
+  isolation: isolate;
+}
+.image-band-bg {
+  position: absolute;
+  inset: -12% 0;
+  z-index: -1;
+  background: url("../images/radhus-band.svg") center 58% / cover no-repeat;
+  filter: saturate(.5) contrast(1.06) brightness(.62);
+  will-change: transform;
+}
+.image-band::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(80% 90% at 50% 110%, rgba(192, 92, 58, .30), transparent 62%),
+    linear-gradient(180deg, rgba(14, 30, 25, .74) 0%, rgba(14, 30, 25, .90) 100%);
+}
+.image-band .container { position: relative; max-width: 760px; }
+.image-band h2 { color: #fff; }
+.image-band-text {
+  color: #c9dbd5;
+  font-size: clamp(1rem, 1.2vw, 1.09rem);
+  line-height: 1.68;
+  margin-bottom: 1.9rem;
+}
+.image-band-houses {
+  position: absolute;
+  right: 4%;
+  bottom: 6%;
+  width: clamp(90px, 12vw, 170px);
+  opacity: .28;
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   7. Footer
+   -------------------------------------------------------------------------- */
+.site-footer {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(60px, 7vw, 104px) 0 0;
+  background: var(--ink);
+  color: var(--on-dark-mut);
+}
+.site-footer::before {
+  content: "";
+  position: absolute;
+  top: -40%;
+  left: 50%;
+  width: 120%;
+  height: 90%;
+  transform: translateX(-50%);
+  background: radial-gradient(50% 60% at 50% 50%, rgba(140, 217, 196, .12), transparent 70%);
+  pointer-events: none;
+}
+
+.footer-inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: clamp(1.6rem, 3.5vw, 3rem);
+}
+
+.footer-brand .brand-text {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #fff;
+}
+.footer-brand .brand-text strong { color: var(--mint); font-style: italic; font-weight: 600; }
+
+.footer-logo {
+  display: block;
+  width: 54px;
+  height: 54px;
+  margin-bottom: .9rem;
+  border-radius: 16px;
+  object-fit: cover;
+  background: var(--forest-2);
+  box-shadow: 0 0 0 1px rgba(236, 244, 240, .16);
+}
+.footer-brand p {
+  margin-top: .8rem;
+  max-width: 38ch;
+  font-size: .92rem;
+  line-height: 1.65;
+}
+
+.footer-col h4 {
+  margin-bottom: 1rem;
+  font-family: var(--font-body);
+  font-size: .74rem;
+  font-weight: 800;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--mint);
+}
+.footer-col li { margin-bottom: .6rem; font-size: .93rem; line-height: 1.55; }
+.footer-col a {
+  display: inline-block;
+  color: var(--on-dark-mut);
+  transition: color var(--t-fast) var(--ease-out), translate var(--t-base) var(--ease-spring);
+}
+.footer-col a:hover { color: #fff; text-decoration: none; translate: 4px 0; }
+
+.footer-bottom {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: .6rem 1.5rem;
+  margin-top: clamp(2.4rem, 5vw, 4rem);
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(236, 244, 240, .10);
+  font-size: .84rem;
+  line-height: 1.6;
+}
+.footer-bottom p { margin: 0; }
+
+.footer-wordmark {
+  display: block;
+  /* Ordmärket har line-height .8, så glyferna sticker ut under sin egen box.
+     Fraunces kursiva J har en svans som går upp till .167em under boxens
+     nederkant (mest vid små optiska storlekar). Med den gamla negativa
+     marginalen kapades svansen – och bokstävernas nederkant – av sidfotens
+     overflow: hidden. Därför: ingen negativ marginal, utan .18em padding som
+     alltid rymmer svansen så att hela ordet syns ned till kanten. */
+  margin: clamp(1.8rem, 4vw, 3.4rem) 0 0;
+  padding-bottom: .18em;
+  font-family: var(--font-display);
+  font-size: clamp(2.7rem, 14.4vw, 172px);
+  font-weight: 600;
+  line-height: .8;
+  letter-spacing: -.045em;
+  text-align: center;
+  white-space: nowrap;
+  color: rgba(236, 244, 240, .05);
+  -webkit-text-stroke: 1px rgba(236, 244, 240, .20);
+  user-select: none;
+  pointer-events: none;
+}
+.footer-wordmark em { font-style: italic; }
+
+/* --------------------------------------------------------------------------
+   8. Till toppen
+   -------------------------------------------------------------------------- */
+.to-top {
+  position: fixed;
+  right: clamp(16px, 2.5vw, 26px);
+  bottom: clamp(16px, 2.5vw, 26px);
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--paper-2);
+  color: var(--ink);
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  /* Uppgången ligger på translate/scale så att den kan studsa mjukt. */
+  translate: 0 18px;
+  scale: .84;
+  transition:
+    opacity var(--t-base) var(--ease-out),
+    translate .55s var(--ease-spring),
+    scale .55s var(--ease-spring),
+    visibility var(--t-base) linear,
+    background-color var(--t-base) var(--ease-out),
+    color var(--t-base) var(--ease-out),
+    border-color var(--t-base) var(--ease-out),
+    box-shadow var(--t-base) var(--ease-out);
+}
+.to-top.is-visible { opacity: 1; visibility: visible; translate: 0 0; scale: 1; }
+.to-top:hover {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+  scale: 1.08;
+  box-shadow: 0 20px 44px -18px rgba(20, 17, 16, .55);
+}
+.to-top:active { scale: .94; transition-duration: .12s; }
+/* Pilen är det enda svg-elementet som ligger direkt i knappen (ringen ligger
+   i en span), så pilen kan röra sig utan att ringen flyttar på sig. */
+.to-top > svg { position: relative; z-index: 2; transition: translate var(--t-base) var(--ease-spring); }
+.to-top:hover > svg { translate: 0 -2px; }
+
+.to-top-ring {
+  position: absolute;
+  inset: -1px;
+  width: calc(100% + 2px);
+  height: calc(100% + 2px);
+  transform: rotate(-90deg);
+  transition: opacity var(--t-base) var(--ease-out);
+}
+/* Ringen pulserar svagt när knappen hålls under pekaren. */
+.to-top:hover .to-top-ring { animation: ring-pulse 1.9s var(--ease-in-out) infinite; }
+.to-top-ring circle {
+  fill: none;
+  stroke: var(--clay);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+/* --------------------------------------------------------------------------
+   9. Responsivt
+   -------------------------------------------------------------------------- */
+@media (max-width: 1080px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 2.6rem; }
+  .hero-title { max-width: 20ch; }
+  .hero-card-wrap { max-width: 520px; }
+  .om-oss-inner { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 980px) {
+  .hero {
+    min-height: 0;
+    padding: calc(var(--header-h) + 56px) 0 72px;
+  }
+  .hero-scroll { display: none; }
+  .omrade-inner,
+  .book-grid { grid-template-columns: 1fr; }
+  .footer-inner { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 860px) {
+  :root { --header-h: 68px; }
+
+  .nav-toggle { display: flex; }
+
+  .primary-nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: 0;
+    overflow: hidden;
+    background: var(--paper-2);
+    border-bottom: 1px solid var(--line);
+    box-shadow: var(--shadow-md);
+    translate: 0 -10px;
+    transition: max-height .55s var(--ease-glide), translate .55s var(--ease-glide);
+  }
+  .primary-nav.open { max-height: 440px; translate: 0 0; }
+  .primary-nav ul {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: .4rem 0 1rem;
+  }
+  .site-header .primary-nav a:not(.btn),
+  .site-header.is-scrolled .primary-nav a:not(.btn) {
+    display: block;
+    padding: .95rem var(--gutter);
+    color: var(--ink);
+    border-radius: 0;
+  }
+  .site-header .primary-nav a:not(.btn).is-active,
+  .site-header.is-scrolled .primary-nav a:not(.btn).is-active { color: var(--clay); }
+  .primary-nav a:not(.btn)::after { display: none; }
+  .primary-nav a:not(.btn):hover { background: var(--paper-3); }
+  .primary-nav .btn { margin: .6rem var(--gutter) .3rem; }
+
+  .trust-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem 1.2rem; }
+  .trust-item:nth-child(odd) + .trust-item::before { display: none; }
+  .trust-item:nth-child(n + 3)::before {
+    content: "";
+    position: absolute;
+    top: calc(2rem / -2);
+    left: 8%;
+    right: 8%;
+    bottom: auto;
+    width: auto;
+    height: 1px;
+    background: var(--line);
+  }
+  .trust-item:nth-child(3) { padding-top: 2rem; }
+  .trust-item:nth-child(4) { padding-top: 2rem; }
+}
+
+@media (max-width: 620px) {
+  .hero-points { grid-template-columns: 1fr; }
+  .hero-actions .btn { flex: 1 1 100%; }
+  .footer-inner { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; }
+  .footer-wordmark { -webkit-text-stroke-width: .8px; }
+}

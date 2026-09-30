@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 640" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Radhuslänga en solig dag">
+  <defs>
+    <linearGradient id="sky2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#a9d3ec"/>
+      <stop offset="0.6" stop-color="#d9edf7"/>
+      <stop offset="1" stop-color="#f2f9fb"/>
+    </linearGradient>
+    <linearGradient id="lawn2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#93b87b"/>
+      <stop offset="1" stop-color="#568244"/>
+    </linearGradient>
+    <linearGradient id="glass2" x1="0" y1="0" x2="0.55" y2="1">
+      <stop offset="0" stop-color="#e2f2fa"/>
+      <stop offset="0.5" stop-color="#a6cadf"/>
+      <stop offset="1" stop-color="#739bb5"/>
+    </linearGradient>
+    <linearGradient id="roofWarm2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#b4624a"/>
+      <stop offset="1" stop-color="#87412f"/>
+    </linearGradient>
+    <linearGradient id="roofCool2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8b9099"/>
+      <stop offset="1" stop-color="#5c636c"/>
+    </linearGradient>
+
+    <g id="rhA">
+      <rect x="0" y="370" width="240" height="150" fill="#efe4d2"/>
+      <polygon points="-14,370 254,370 120,282" fill="url(#roofWarm2)"/>
+      <rect x="22" y="415" width="58" height="60" rx="3" fill="url(#glass2)" stroke="#ffffff" stroke-width="5"/>
+      <rect x="160" y="415" width="58" height="60" rx="3" fill="url(#glass2)" stroke="#ffffff" stroke-width="5"/>
+      <rect x="98" y="415" width="44" height="105" rx="2" fill="#7a4a3a"/>
+    </g>
+    <g id="rhB">
+      <rect x="0" y="370" width="240" height="150" fill="#e6d8bf"/>
+      <rect x="196" y="278" width="22" height="82" fill="#c2b199"/>
+      <polygon points="-14,370 254,370 120,276" fill="url(#roofWarm2)"/>
+      <rect x="28" y="415" width="46" height="60" rx="3" fill="url(#glass2)" stroke="#ffffff" stroke-width="5"/>
+      <rect x="166" y="415" width="46" height="60" rx="3" fill="url(#glass2)" stroke="#ffffff" stroke-width="5"/>
+      <rect x="98" y="415" width="44" height="105" rx="2" fill="#6f4436"/>
+    </g>
+    <g id="rhC">
+      <rect x="0" y="370" width="240" height="150" fill="#f3e9d9"/>
+      <polygon points="-14,370 254,370 120,288" fill="url(#roofCool2)"/>
+      <rect x="20" y="415" width="88" height="60" rx="3" fill="url(#glass2)" stroke="#ffffff" stroke-width="5"/>
+      <rect x="118" y="415" width="44" height="105" rx="2" fill="#7a4a3a"/>
+      <rect x="172" y="415" width="48" height="60" rx="3" fill="url(#glass2)" stroke="#ffffff" stroke-width="5"/>
+    </g>
+  </defs>
+
+  <rect width="1920" height="640" fill="url(#sky2)"/>
+  <circle cx="1620" cy="130" r="150" fill="#ffffff" opacity="0.5"/>
+
+  <g fill="#ffffff" opacity="0.55">
+    <ellipse cx="360" cy="120" rx="120" ry="38"/>
+    <ellipse cx="440" cy="98" rx="78" ry="30"/>
+    <ellipse cx="268" cy="104" rx="62" ry="24"/>
+    <ellipse cx="1180" cy="92" rx="100" ry="30"/>
+    <ellipse cx="1258" cy="78" rx="64" ry="22"/>
+  </g>
+
+  <path d="M0 470 C 220 424 420 486 640 452 C 860 418 1040 484 1280 450 C 1500 418 1720 478 1920 448 L1920 560 L0 560 Z"
+        fill="#8fb097" opacity="0.8"/>
+
+  <rect y="520" width="1920" height="120" fill="url(#lawn2)"/>
+
+  <use href="#rhA" x="-120" y="0"/>
+  <use href="#rhB" x="120" y="0"/>
+  <use href="#rhC" x="360" y="0"/>
+  <use href="#rhA" x="600" y="0"/>
+  <use href="#rhC" x="840" y="0"/>
+  <use href="#rhB" x="1080" y="0"/>
+  <use href="#rhA" x="1320" y="0"/>
+  <use href="#rhC" x="1560" y="0"/>
+  <use href="#rhB" x="1800" y="0"/>
+
+  <g fill="#6f9a63" opacity="0.85">
+    <rect x="60" y="502" width="120" height="24" rx="11"/>
+    <rect x="560" y="500" width="100" height="22" rx="10"/>
+    <rect x="1035" y="502" width="110" height="24" rx="11"/>
+    <rect x="1500" y="501" width="140" height="23" rx="11"/>
+  </g>
+
+  <g fill="#7dab6f" opacity="0.9">
+    <rect x="300" y="504" width="140" height="26" rx="12"/>
+    <rect x="780" y="506" width="140" height="28" rx="13"/>
+    <rect x="1260" y="505" width="120" height="26" rx="12"/>
+    <rect x="1755" y="506" width="110" height="27" rx="13"/>
+  </g>
+</svg>

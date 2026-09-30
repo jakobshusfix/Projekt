@@ -1,0 +1,620 @@
+/* ==========================================================================
+   Jakobs HusFix — effects.css
+   Rörelse, övergångar och dekorativa effekter.
+   Allt är progressiv förbättring: utan JS (klassen .js saknas) är sidan
+   helt statisk och fullt läsbar.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Scrollbar
+   -------------------------------------------------------------------------- */
+html { scrollbar-width: thin; scrollbar-color: var(--line-strong) var(--paper-3); }
+
+::-webkit-scrollbar { width: 11px; height: 11px; }
+::-webkit-scrollbar-track { background: var(--paper-3); }
+::-webkit-scrollbar-thumb {
+  background: var(--line-strong);
+  border: 3px solid var(--paper-3);
+  border-radius: 99px;
+  transition: background-color .3s var(--ease-out);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--clay); }
+
+/* Rullningslisten i de utfällbara fönstren (förslagslistorna och kalendern).
+   Fönstret är rundat, men en klassisk ränna ritas som en rak rektangel och skär
+   rakt igenom hörnen. Därför blir rännan genomskinlig och tummen rundad, så att
+   listen håller sig inom fönstrets form. scrollbar-color ärvs från html, och de
+   webbläsare som stöder den (Chrome/Edge 121+, Firefox, Safari 18.2+) ignorerar
+   ::-webkit-scrollbar helt – där sköter det genomskinliga spåret saken.
+   ::-webkit-reglerna nedan fångar upp äldre WebKit/Blink i stället. */
+.combo-list,
+.datepicker { scrollbar-color: var(--line-strong) transparent; }
+
+.combo-list::-webkit-scrollbar-track,
+.datepicker::-webkit-scrollbar-track { background: transparent; }
+
+.combo-list::-webkit-scrollbar-thumb,
+.datepicker::-webkit-scrollbar-thumb {
+  border-color: transparent;
+  background-clip: padding-box;
+  border-radius: 99px;
+}
+
+/* --------------------------------------------------------------------------
+   2. Förladdning
+   -------------------------------------------------------------------------- */
+.preloader { display: none; }
+
+.js .preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  background: var(--forest);
+  color: var(--on-dark);
+  /* Överlägget tonar ut och växer en aning, så att sidan känns "tona fram"
+     i stället för att bara slås på. */
+  transition: opacity .7s var(--ease-out), scale .7s var(--ease-out), visibility .7s linear;
+}
+.js .preloader.is-done {
+  opacity: 0;
+  scale: 1.035;
+  visibility: hidden;
+  pointer-events: none;
+}
+/* Säkerhetsnät: även om skriptet inte skulle köra klart tonar förladdningen
+   ut sig själv, så att den aldrig kan ligga kvar över sidan. Tiden ligger strax
+   efter skriptets egen minsta visningstid (js/effects.js). */
+.js .preloader {
+  animation: preloader-auto-hide .6s var(--ease-out) 3.4s forwards;
+}
+@keyframes preloader-auto-hide {
+  to { opacity: 0; visibility: hidden; }
+}
+
+.preloader-inner { text-align: center; }
+
+.preloader-mark {
+  display: grid;
+  place-items: center;
+  width: 62px;
+  height: 62px;
+  margin: 0 auto 1.1rem;
+  border-radius: 19px;
+  background: rgba(236, 244, 240, .07);
+  box-shadow: inset 0 0 0 1px rgba(236, 244, 240, .16);
+  animation: mark-float 3.6s var(--ease-in-out) infinite;
+}
+.preloader-mark svg { width: 30px; height: 30px; color: var(--mint); }
+
+.preloader-text {
+  font-family: var(--font-display);
+  font-size: 1.24rem;
+  font-weight: 600;
+  letter-spacing: -.02em;
+  color: #fff;
+  animation: preloader-text-in .8s var(--ease-glide) .08s both;
+}
+.preloader-text strong { color: var(--mint); font-style: italic; font-weight: 600; }
+
+.preloader-bar {
+  position: relative;
+  width: 168px;
+  height: 2px;
+  margin: 1.2rem auto 0;
+  border-radius: 2px;
+  background: rgba(236, 244, 240, .16);
+  overflow: hidden;
+}
+/* Ett tunt ljussken som sveper över listen medan sidan laddas. */
+.preloader-bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .55), transparent);
+  transform: translateX(-100%);
+  animation: bar-shimmer 1.5s var(--ease-in-out) .15s infinite;
+}
+.preloader-bar span {
+  display: block;
+  height: 100%;
+  width: 100%;
+  transform-origin: 0 50%;
+  background: linear-gradient(90deg, var(--clay), var(--sun) 55%, var(--mint));
+  /* Listen fylls under samma tid som förladdningen minst visas. */
+  animation: load-bar 2s var(--ease-glide) both;
+}
+
+/* --------------------------------------------------------------------------
+   3. Läsindikator i toppen
+   -------------------------------------------------------------------------- */
+.scroll-progress { display: none; }
+
+.js .scroll-progress {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 120;
+  height: 2px;
+  transform: scaleX(var(--progress, 0));
+  transform-origin: 0 50%;
+  background: linear-gradient(90deg, var(--clay), var(--sun) 52%, var(--mint));
+  /* Kort efterglidning gör att listen följer scrollen mjukt i stället för
+     att hacka när hjulet rullar i steg. */
+  transition: transform .18s linear;
+  box-shadow: 0 0 14px rgba(192, 92, 58, .5);
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   4. Kornig papperstextur
+   -------------------------------------------------------------------------- */
+.js body::after {
+  content: "";
+  position: fixed;
+  inset: -60%;
+  z-index: 95;
+  pointer-events: none;
+  opacity: .045;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain-shift 9s steps(6) infinite;
+}
+
+/* --------------------------------------------------------------------------
+   5. Ljus som följer muspekaren
+   -------------------------------------------------------------------------- */
+.cursor-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 96;
+  width: 460px;
+  height: 460px;
+  margin: -230px 0 0 -230px;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  mix-blend-mode: soft-light;
+  background: radial-gradient(circle, rgba(242, 193, 78, .75), rgba(140, 217, 196, .35) 45%, transparent 70%);
+  transition: opacity .45s var(--ease-out), scale .3s var(--ease-out);
+  /* Positionen sätts av js/effects.js i translate-egenskapen. Den ligger
+     utanför scale, så ljuset förblir centrerat på pekaren även när det
+     sträcks ut. translateZ(0) ger elementet en egen lagerplats. */
+  transform: translateZ(0);
+  will-change: translate, scale;
+}
+.cursor-glow.is-on { opacity: .85; }
+/* Rör man musen snabbt sträcks ljuset ut och blir tydligare. */
+.cursor-glow.is-fast { opacity: .95; scale: 1.16; }
+/* Nedtryckt musknapp: ljuset drar ihop sig en aning, som en lampa som tänds. */
+.cursor-glow.is-down { opacity: .55; scale: .9; }
+
+/* --------------------------------------------------------------------------
+   5b. Klickringel
+   En mjuk ring som sprids från pekaren där man trycker ned musen. Elementet
+   skapas av js/effects.js (initRipple) och tas bort igen när animationen är
+   klar. Ringeln ligger på z-index -1, under texten men över bakgrunden, och
+   kräver att värdelementet är positionerat och har egen staplingskontext.
+   -------------------------------------------------------------------------- */
+.btn-ripple {
+  position: absolute;
+  z-index: -1;
+  border-radius: 50%;
+  background: radial-gradient(circle, currentColor, transparent 70%);
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(.35);
+  animation: btn-ripple .62s var(--ease-out) forwards;
+}
+
+/* --------------------------------------------------------------------------
+   6. Intoningar vid skroll
+   -------------------------------------------------------------------------- */
+.js [data-reveal] {
+  opacity: 0;
+  translate: var(--reveal-x, 0px) var(--reveal-y, 30px);
+  /* En aning oskärpa som släpper samtidigt som elementet glider i mål – det
+     gör intoningen mjuk att titta på i stället för att bara vara en rak toning. */
+  filter: blur(4px);
+}
+/* Intoningen körs som en animation i stället för en övergång: när den är klar
+   lämnas filtret tillbaka till none. Ett kvarstående filter (även blur(0px))
+   hade gett varje element ett eget lager och kostat prestanda vid skroll. */
+.js [data-reveal].is-visible {
+  opacity: 1;
+  translate: 0 0;
+  filter: none;
+  animation: reveal-glide .9s var(--ease-glide) var(--reveal-delay, 0ms) backwards;
+}
+.js [data-reveal="left"]  { --reveal-x: -44px; --reveal-y: 0px; }
+.js [data-reveal="right"] { --reveal-x: 44px;  --reveal-y: 0px; }
+.js [data-reveal="fade"]  { --reveal-y: 0px; }
+.js [data-reveal="rise"]  { --reveal-y: 52px; }
+
+@keyframes reveal-glide {
+  from { opacity: 0; translate: var(--reveal-x, 0px) var(--reveal-y, 30px); filter: blur(4px); }
+  to   { opacity: 1; translate: 0 0; filter: blur(0px); }
+}
+
+/* --------------------------------------------------------------------------
+   6b. Intoningar som main.js lägger på (.reveal + .is-visible)
+   main.js sätter klassen .reveal på sektionshuvuden, kort, steg och
+   formulär och tar bort den igen med .is-visible när de skrollas in.
+   Här definieras själva effekten – utan CSS blir klasserna verkningslösa.
+   -------------------------------------------------------------------------- */
+.reveal {
+  opacity: 0;
+  will-change: opacity;
+}
+.reveal.is-visible {
+  opacity: 1;
+  animation: reveal-in .9s var(--ease-glide) backwards;
+}
+
+/* Element som redan passerat vyn (säkerhetsnätet i effects.js) ska stå klara
+   direkt – ingen övergång hinner ändå ses. */
+.reveal.is-instant,
+.js [data-reveal].is-instant {
+  transition: none;
+  animation: none;
+}
+.js [data-reveal].is-instant { opacity: 1; translate: 0 0; filter: none; }
+
+@keyframes reveal-in {
+  from { opacity: 0; translate: 0 24px; scale: .985; filter: blur(4px); }
+  to   { opacity: 1; translate: 0 0; scale: 1; filter: blur(0px); }
+}
+
+/* --------------------------------------------------------------------------
+   7. Ordvis rubrikanimering
+   -------------------------------------------------------------------------- */
+.split-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding-bottom: .14em;
+  margin-bottom: -.14em;
+}
+.split-word > span {
+  display: inline-block;
+  will-change: transform;
+}
+.js .split-target .split-word > span {
+  translate: 0 112%;
+}
+.js .split-target.is-split-in .split-word > span {
+  translate: 0 0;
+  transition: translate 1.15s var(--ease-glide);
+  transition-delay: var(--word-delay, 0ms);
+}
+
+/* --------------------------------------------------------------------------
+   8. Pynt: gnistor
+   -------------------------------------------------------------------------- */
+.sparkle {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  color: var(--clay);
+  pointer-events: none;
+  animation: sparkle-twinkle 5.5s var(--ease-in-out) infinite;
+}
+.sparkle--mint { color: var(--mint); }
+
+.section-head { position: relative; }
+.section-head .sparkle { top: -6px; right: 4%; }
+.section-head--left .sparkle { display: none; }
+
+/* --------------------------------------------------------------------------
+   9. Nyckelbildrutor
+   -------------------------------------------------------------------------- */
+@keyframes streak-drift {
+  from { transform: translateX(-34%) rotate(16deg); }
+  to   { transform: translateX(34%) rotate(16deg); }
+}
+
+@keyframes glass-sweep {
+  0%   { transform: translateX(-40%) rotate(14deg); opacity: 0; }
+  18%  { opacity: 1; }
+  55%  { transform: translateX(330%) rotate(14deg); opacity: 0; }
+  100% { transform: translateX(330%) rotate(14deg); opacity: 0; }
+}
+
+@keyframes dot-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: .5; transform: scale(.78); }
+}
+
+@keyframes scroll-hint {
+  0%, 100% { transform: scaleY(.42); opacity: .45; }
+  50%      { transform: scaleY(1); opacity: 1; }
+}
+
+@keyframes marquee-x {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* Utfällning av menyer och kalendern: faller ned från fältet ovanför och
+   växer en aning (--ease-spring ger det lilla överskjutet i slutet). */
+@keyframes menu-in {
+  from { opacity: 0; transform: translateY(-9px) scale(.96); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes reveal-pop {
+  from { opacity: 0; transform: translateY(8px) scale(.97); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Klickringeln (se .btn-ripple): sprids från pekaren och tonar ut. */
+@keyframes btn-ripple {
+  from { opacity: .45; transform: scale(.35); }
+  to   { opacity: 0;   transform: scale(1); }
+}
+
+/* Kort skakning när ett fält får felmeddelande. */
+@keyframes field-shake {
+  0%, 100% { translate: 0 0; }
+  20%      { translate: -5px 0; }
+  40%      { translate: 5px 0; }
+  60%      { translate: -3px 0; }
+  80%      { translate: 3px 0; }
+}
+
+/* Ljusskenet som sveper över förladdningens mätare. */
+@keyframes bar-shimmer {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(100%); }
+}
+
+@keyframes preloader-text-in {
+  from { opacity: 0; translate: 0 10px; }
+  to   { opacity: 1; translate: 0 0; }
+}
+
+/* Glaskortets glöd andas bakom panelen i heron. */
+@keyframes glow-breathe {
+  from { opacity: .7; scale: .96; }
+  to   { opacity: 1;  scale: 1.06; }
+}
+
+@keyframes ring-pulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: .4; }
+}
+
+@keyframes grain-shift {
+  0%   { transform: translate(0, 0); }
+  20%  { transform: translate(-2%, 1%); }
+  40%  { transform: translate(1%, -2%); }
+  60%  { transform: translate(-1%, -1%); }
+  80%  { transform: translate(2%, 1%); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes sparkle-twinkle {
+  0%, 100% { transform: scale(.72) rotate(0deg);   opacity: .35; }
+  50%      { transform: scale(1.1) rotate(45deg);  opacity: 1; }
+}
+
+@keyframes mark-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
+}
+
+@keyframes load-bar {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+/* Mjuk, svajig vaggning för boxarna i sektionen "01 — Vår tjänst".
+   Värdena är en sinuskurva samplad i sexton steg per varv och animationen
+   körs därför med linear – då glider boxen jämnt och långsamt i stället för
+   att stanna till vid varje nyckelbildruta. Steg 0 % är identiskt med slutet
+   av card-rise, så bytet mellan dem syns inte. Amplituderna är små: ±1,2°
+   vridning och knappt 2 px höjdskillnad. Skalan animeras medvetet inte,
+   eftersom texten hålls skarpare då. */
+@keyframes card-rise {
+  from { transform: translateY(0) rotate(0deg); }
+  to   { transform: translateY(-5px) rotate(0deg); }
+}
+
+@keyframes card-wobble {
+  0%     { transform: translateY(-5px)   rotate(0deg); }
+  6.25%  { transform: translateY(-5.7px) rotate(-.46deg); }
+  12.5%  { transform: translateY(-6.3px) rotate(-.85deg); }
+  18.75% { transform: translateY(-6.7px) rotate(-1.11deg); }
+  25%    { transform: translateY(-6.8px) rotate(-1.2deg); }
+  31.25% { transform: translateY(-6.7px) rotate(-1.11deg); }
+  37.5%  { transform: translateY(-6.3px) rotate(-.85deg); }
+  43.75% { transform: translateY(-5.7px) rotate(-.46deg); }
+  50%    { transform: translateY(-5px)   rotate(0deg); }
+  56.25% { transform: translateY(-4.3px) rotate(.46deg); }
+  62.5%  { transform: translateY(-3.7px) rotate(.85deg); }
+  68.75% { transform: translateY(-3.3px) rotate(1.11deg); }
+  75%    { transform: translateY(-3.2px) rotate(1.2deg); }
+  81.25% { transform: translateY(-3.3px) rotate(1.11deg); }
+  87.5%  { transform: translateY(-3.7px) rotate(.85deg); }
+  93.75% { transform: translateY(-4.3px) rotate(.46deg); }
+  100%   { transform: translateY(-5px)   rotate(0deg); }
+}
+
+/* --------------------------------------------------------------------------
+   10. Flikbyte i "Lediga tider" – bokningstabellen, kontot och ägaren
+   Alla tre flikarna delar samma plats i sidan. Utan effekt försvinner den
+   gamla panelen och den nya står bara där; här tonar panelen in med en liten
+   glidning och delarna i listorna kommer in en efter en. Förskjutningen
+   --stagger sätts av main.js (staggerItems och sweepIn) och räknas här om till
+   animation-delay. Det gör bytet tydligt – särskilt steget från kontot till
+   ägarpanelen, där knapparna för tiderna annars bara plötsligt finns där.
+   -------------------------------------------------------------------------- */
+@keyframes slot-panel-in {
+  from { opacity: 0; translate: 0 16px; }
+  to   { opacity: 1; translate: 0 0; }
+}
+
+.slot-panel.is-enter {
+  animation: slot-panel-in .46s var(--ease-glide) backwards;
+}
+
+/* Dagkorten, dagknapparna och tiderna. Samma animation används både när en
+   panel visas (is-enter på panelen) och när en lista fylls för första gången
+   (is-enter på listan själv). */
+@keyframes slot-item-in {
+  from { opacity: 0; translate: 0 10px; scale: .97; }
+  to   { opacity: 1; translate: 0 0; scale: 1; }
+}
+
+.slot-panel.is-enter .slot-day,
+.slot-panel.is-enter .owner-day-btn,
+.slot-panel.is-enter .owner-hour,
+.is-enter > .slot-day,
+.is-enter > .owner-day-btn,
+.is-enter > .owner-hour {
+  animation: slot-item-in .42s var(--ease-out) backwards;
+  animation-delay: var(--stagger, 0ms);
+}
+
+/* Fliken som blir vald kvitterar klicket med en liten studs. */
+@keyframes slot-tab-pop {
+  from { scale: .93; }
+  to   { scale: 1; }
+}
+
+.slot-tab.is-active {
+  animation: slot-tab-pop .34s var(--ease-spring);
+}
+
+/* När ägarkontot loggar in lyser fliken "Ägare" till, så att det syns att den
+   har låsts upp. */
+@keyframes slot-tab-unlock {
+  from { box-shadow: 0 0 0 0 rgba(44, 144, 119, .55); }
+  to   { box-shadow: 0 0 0 14px rgba(44, 144, 119, 0); }
+}
+
+.slot-tab.is-unlocked {
+  animation: slot-tab-unlock .9s var(--ease-out) 2;
+}
+
+/* Tiden som är på väg till bokningsservern pulserar tills svaret kommer. */
+@keyframes slot-saving-pulse {
+  0%, 100% { box-shadow: inset 0 0 0 0 rgba(20, 60, 50, 0); }
+  50%      { box-shadow: inset 0 0 0 3px rgba(20, 60, 50, .3); }
+}
+
+.owner-hour.is-saving {
+  animation: slot-saving-pulse 1s var(--ease-in-out) infinite;
+}
+
+/* Uppdatera-knappens pil snurrar medan svaret är på väg, och kvitterar med en
+   liten studs när svaret har kommit. */
+@keyframes slot-refresh-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes slot-btn-pop {
+  from { transform: scale(.72); }
+  to   { transform: scale(1); }
+}
+
+/* En tid som bytte läge vid en uppdatering blinkar till en gång: grönt för en
+   tid som blev ledig, lera för en som blev bokad. */
+@keyframes slot-time-flash {
+  0%   { box-shadow: 0 0 0 0 rgba(44, 144, 119, .55); scale: .95; }
+  35%  { box-shadow: 0 0 0 7px rgba(44, 144, 119, .16); scale: 1.06; }
+  100% { box-shadow: 0 0 0 0 rgba(44, 144, 119, 0); scale: 1; }
+}
+
+@keyframes slot-time-flash-busy {
+  0%   { box-shadow: 0 0 0 0 rgba(192, 92, 58, .5); scale: .95; }
+  35%  { box-shadow: 0 0 0 7px rgba(192, 92, 58, .16); scale: 1.06; }
+  100% { box-shadow: 0 0 0 0 rgba(192, 92, 58, 0); scale: 1; }
+}
+
+/* Pricken i statusraden: den andas medan sajten kopplar upp sig igen (så att
+   det syns att något händer även om tiderna står stilla) och kvitterar med en
+   ring när kopplingen är tillbaka. */
+@keyframes slot-dot-sync {
+  0%, 100% { opacity: 1;  transform: scale(1); }
+  50%      { opacity: .45; transform: scale(.72); }
+}
+
+@keyframes slot-dot-live {
+  from { box-shadow: 0 0 0 0 rgba(44, 144, 119, .55); }
+  to   { box-shadow: 0 0 0 .5rem rgba(44, 144, 119, 0); }
+}
+
+.slot-dot.is-sync { animation: slot-dot-sync 1.4s var(--ease-in-out) infinite; }
+.slot-dot.is-live { animation: slot-dot-live .8s var(--ease-out) 1; }
+
+/* Ljuset som sveper över platshållarkorten medan listan hämtas. */
+@keyframes slot-skeleton-sweep {
+  from { background-position: 1.1rem 1.1rem, 1.1rem 2.5rem, 1.1rem 3.9rem, -80% 0; }
+  to   { background-position: 1.1rem 1.1rem, 1.1rem 2.5rem, 1.1rem 3.9rem, 180% 0; }
+}
+
+/* --------------------------------------------------------------------------
+   11. Reducerad rörelse
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal.is-visible { opacity: 1 !important; animation: none !important; }
+
+  .js [data-reveal],
+  .js [data-reveal].is-visible {
+    opacity: 1 !important;
+    translate: none !important;
+    filter: none !important;
+    animation: none !important;
+  }
+
+  .js .split-target .split-word > span,
+  .js .split-target.is-split-in .split-word > span { translate: none !important; }
+
+  .js .preloader { display: none !important; }
+  .js body::after { display: none !important; }
+  .cursor-glow { display: none !important; }
+  .btn-ripple { display: none !important; }
+  .marquee-track { animation: none !important; }
+  .marquee:hover .marquee-item { opacity: 1 !important; }
+  .hero-streak { animation: none !important; }
+  .hero-card-glow { animation: none !important; }
+  .sparkle { display: none !important; }
+  .to-top:hover .to-top-ring { animation: none !important; }
+
+  /* Boxarna lyfter som vanligt men står stilla – ingen vaggning. */
+  .card:hover,
+  .price-banner:hover { animation: none !important; }
+
+  /* Flikbytet sker utan intoning: innehållet står klart direkt, och tiden som
+     sparas pulserar inte. Kvittenserna på Uppdatera-knappen står också stilla –
+     texten ("Uppdaterar…" / "Uppdaterad") säger ändå vad som händer. */
+  .slot-panel.is-enter,
+  .slot-tab.is-active,
+  .slot-tab.is-unlocked,
+  .owner-hour.is-saving,
+  .slot-time.is-flash,
+  .slot-refresh.is-busy .slot-refresh-icon,
+  .slot-refresh.is-done .slot-refresh-icon,
+  .slot-days.is-loading .slot-skeleton-card { animation: none !important; }
+
+  .slot-refresh.is-busy .slot-refresh-icon { opacity: .5; }
+
+  .slot-panel.is-enter .slot-day,
+  .slot-panel.is-enter .owner-day-btn,
+  .slot-panel.is-enter .owner-hour,
+  .is-enter > .slot-day,
+  .is-enter > .owner-day-btn,
+  .is-enter > .owner-hour { animation: none !important; }
+}
+
+/* Dölj musljuset på pekskärmar */
+@media (hover: none), (pointer: coarse) {
+  .cursor-glow { display: none !important; }
+}

@@ -275,26 +275,6 @@ helger.
 
 ## Anpassa
 
-Allt som går att ändra finns högst upp i `Code.gs`:
-
-```js
-var CONFIG = {
-  COMPANY: 'Jakobs HusFix',
-  OWNER_NAME: 'Jakob',
-  OWNER_EMAIL: 'jakobshusfix@gmail.com',   // hit skickas förfrågningarna
-  OWNER_USER: 'jakob',                      // användarnamn för ägarkontot
-  OWNER_PASSWORD: 'JakobsHusFix2026',       // lösenord för ägarkontot
-  SHEET_NAME: 'Bokningar',                  // fliken i kalkylarket
-  SHEET_ACCOUNTS: 'Konton',                 // konton för ägare och personal
-  SHEET_SLOTS: 'Tider',                     // Jakobs egna markeringar
-  SHEET_SESSIONS: 'Sessioner',              // aktiva inloggningar
-  SESSION_HOURS: 12,                         // hur länge en inloggning håller
-  MAX_DAYS_PER_REQUEST: 31,                  // dagar per förfrågan om lediga tider
-  PRICE_PER_WINDOW: 70,                      // kr per fönster
-  BOOKING_LEAD_MINUTES: 60,                  // minsta framförhållning (min)
-  TZ: 'Europe/Stockholm'
-};
-```
 
 Vill du att bokningarna ska gå till en annan adress ändrar du `OWNER_EMAIL`
 ovan **och** `companyEmail` i `index.html`, så att båda vägarna går till samma

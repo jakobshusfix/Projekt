@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Jakobs HusFix - utvändig fönsterputs för villa och radhus i Sollentuna, Häggvik och Norrort. Startpris 70 kr per fönster – slutpriset ges på plats vid huset. 9 av 10 kunder blir nöjda – boka enkelt online." />
+  <title>Jakobs HusFix | Fönsterputs i Sollentuna, Häggvik & Norrort – startpris 70 kr/fönster</title>
+  <meta name="theme-color" content="#0e1e19" />
+
+  <!-- Markerar att JS är på, så att rörelseeffekterna bara aktiveras när de kan köras.
+       Stänger samtidigt av webbläsarens egen återställning av scrollpositionen, så att
+       en omladdning av sidan alltid börjar högst upp i stället för mitt i innehållet. -->
+  <script>
+    document.documentElement.classList.add("js");
+    if ("scrollRestoration" in window.history) window.history.scrollRestoration = "manual";
+  </script>
+
+  <!-- Delning i sociala medier. Byt og:image/og:url mot fullständiga adresser när domänen är på plats. -->
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="sv_SE" />
+  <meta property="og:site_name" content="Jakobs HusFix" />
+  <meta property="og:title"
+    content="Jakobs HusFix | Fönsterputs i Sollentuna, Häggvik & Norrort – startpris 70 kr/fönster" />
+  <meta property="og:description"
+    content="Utvändig fönsterputs för villa och radhus i Sollentuna, Häggvik och Norrort. Startpris 70 kr per fönster, slutpriset ges på plats vid huset – och 9 av 10 nöjda kunder." />
+  <meta property="og:image" content="images/hero-house.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Jakobs HusFix | Fönsterputs i Sollentuna, Häggvik & Norrort" />
+  <meta name="twitter:description"
+    content="Utvändig fönsterputs för villa och radhus i Sollentuna, Häggvik och Norrort. Startpris 70 kr per fönster – slutpriset ges på plats vid huset." />
+  <meta name="twitter:image" content="images/hero-house.jpg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..900&family=Manrope:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <link rel="preload" as="image" href="images/hero-house.jpg" />
+
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/effects.css" />
+
+  <link rel="icon" type="image/png" sizes="32x32" href="images/logo-32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="images/logo-180.png" />
+
+  <!-- Strukturerad data (lokal sökmotoroptimering). -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Jakobs HusFix",
+    "description": "Utvändig fönsterputs för villa och radhus i Sollentuna, Häggvik och Norrort. Startpris 70 kr per fönster – slutpriset ges på plats vid huset efter bedömning, innan arbetet börjar.",
+    "image": "images/logo.png",
+    "telephone": "+46793584957",
+    "email": "jakobshusfix@gmail.com",
+    "priceRange": "70 kr per fönster",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Sollentuna",
+      "addressRegion": "Stockholm",
+      "addressCountry": "SE"
+    },
+    "areaServed": [
+      "Sollentuna", "Edsberg", "Helenelund", "Häggvik", "Norrviken", "Rotebro",
+      "Ulriksdal", "Bergshamra", "Solna", "Sundbyberg", "Kista", "Akalla",
+      "Husby", "Rinkeby", "Tensta", "Hjulsta", "Spånga", "Vällingby",
+      "Hässelby", "Danderyd", "Täby", "Vallentuna", "Upplands Väsby"
+    ],
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "15:00",
+        "closes": "20:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Saturday", "Sunday"],
+        "opens": "10:00",
+        "closes": "18:00"
+      }
+    ]
+  }
+  </script>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Hoppa till innehållet</a>
+
+  <!-- FÖRLADDNING -->
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <div class="preloader-inner">
+      <div class="preloader-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+          stroke-linejoin="round">
+          <rect x="3.5" y="3.5" width="17" height="17" rx="3" />
+          <path d="M12 3.5v17M3.5 12h17" />
+        </svg>
+      </div>
+      <p class="preloader-text">Jakobs <strong>HusFix</strong></p>
+      <div class="preloader-bar"><span></span></div>
+    </div>
+  </div>
+
+  <!-- LÄSINDIKATOR -->
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <!-- HEADER -->
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="Jakobs HusFix startsida">
+        <img class="brand-logo" src="images/logo.png" alt="Jakobs HusFix logotyp" width="256" height="256" />
+        <span class="brand-text">Jakobs <strong>HusFix</strong></span>
+      </a>
+
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="primaryNav"
+        aria-label="Öppna meny">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="primary-nav" id="primaryNav" aria-label="Huvudmeny">
+        <ul>
+          <li><a href="#fonsterputs">Fönsterputs</a></li>
+          <li><a href="#priser">Priser</a></li>
+          <li><a href="#sa-funkar-det">Så funkar det</a></li>
+          <li><a href="#omrade">Område</a></li>
+          <li><a href="#om-oss">Om oss</a></li>
+          <li><a href="#lediga-tider">Lediga tider</a></li>
+          <li><a class="btn btn-primary btn-sm" href="#boka" data-magnetic>Boka tid</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-bg" aria-hidden="true">
+        <div class="hero-photo" data-parallax="0.10"></div>
+        <div class="hero-grid"></div>
+        <span class="hero-streak hero-streak--1"></span>
+        <span class="hero-streak hero-streak--2"></span>
+        <div class="hero-tone"></div>
+      </div>
+
+      <div class="container hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow eyebrow--light" data-reveal="fade">Fönsterputs i Sollentuna, Häggvik & Norrort</p>
+
+          <h1 class="hero-title split-target">Skinande <em>rena</em> fönster – utan att du lyfter ett finger</h1>
+
+          <p class="hero-lead" data-reveal data-reveal-delay="120">
+            Jakobs HusFix putsar fönster åt villa- och radhusägare. Vi tar utsidan, karmar och
+            bleck – och startpriset är 70 kr per fönster. Det slutliga priset får du på plats
+            vid huset, efter att vi bedömt fönstren. Boka en tid direkt här på sidan så kommer
+            vi till dig när det passar.
+          </p>
+
+          <div class="hero-actions" data-reveal data-reveal-delay="220">
+            <a class="btn btn-mint btn-lg" href="#boka" data-magnetic>
+              Boka tid nu
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14" />
+                <path d="M13 6l6 6-6 6" />
+              </svg>
+            </a>
+            <a class="btn btn-ghost-light btn-lg" href="#fonsterputs" data-magnetic>Se pris</a>
+          </div>
+
+          <ul class="hero-points" data-reveal data-reveal-delay="320">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="9" />
+                <path d="M8.5 12.4l2.4 2.4 4.6-5" />
+              </svg>
+              9 av 10 nöjda kunder
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="9" />
+                <path d="M8.5 12.4l2.4 2.4 4.6-5" />
+              </svg>
+              Startpris 70 kr per fönster
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="9" />
+                <path d="M8.5 12.4l2.4 2.4 4.6-5" />
+              </svg>
+              Slutpris på plats vid huset
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="9" />
+                <path d="M8.5 12.4l2.4 2.4 4.6-5" />
+              </svg>
+              Fullt försäkrade
+            </li>
+          </ul>
+        </div>
+
+        <div class="hero-card-wrap" data-reveal="right" data-reveal-delay="180">
+          <span class="hero-card-glow" aria-hidden="true"></span>
+          <div class="hero-card">
+            <div class="hero-card-head">
+              <span class="dot" aria-hidden="true"></span>
+              <span class="hero-card-label" data-next-available-label>Boka en tid</span>
+            </div>
+            <!-- Texten nedan räknas fram i js/main.js ("Nästa lediga tid").
+                 Utan JavaScript visas öppettiderna i stället – aldrig ett
+                 påhittat datum. -->
+            <p class="hero-card-big" data-next-available>Vardagar 15–20, helger 10–18</p>
+            <div class="hero-card-divider"></div>
+            <div class="hero-card-rows">
+              <div class="hero-card-row">
+                <span class="hero-card-label">Startpris per fönster (kan variera)</span>
+                <span class="hero-card-price">70 kr</span>
+              </div>
+              <div class="hero-card-row">
+                <span class="hero-card-label">Radhus, ca 12 fönster</span>
+                <span class="hero-card-price">från 840 kr</span>
+              </div>
+              <div class="hero-card-row">
+                <span class="hero-card-label">Villa, ca 20 fönster</span>
+                <span class="hero-card-price">från 1 400 kr</span>
+              </div>
+              <div class="hero-card-row">
+                <span class="hero-card-label">Nöjda kunder</span>
+                <span class="hero-card-price">9 av 10</span>
+              </div>
+            </div>
+            <div class="hero-card-foot">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"
+                stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 3l7.5 3.4v5.3c0 4.4-3.1 8.4-7.5 9.3-4.4-.9-7.5-4.9-7.5-9.3V6.4z" />
+                <path d="M9 12.4l2.1 2.1 4.1-4.5" />
+              </svg>
+              Fast slutpris på plats – innan vi börjar
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <span class="hero-scroll" aria-hidden="true">
+        <span class="hero-scroll-line"></span>
+        Skrolla
+      </span>
+    </section>
+    <!-- LÖPANDE BAND -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <div class="marquee-group">
+          <span class="marquee-item">Utvändig fönsterputs</span><span class="marquee-sep"></span>
+          <span class="marquee-item"><em>Villa</em> & radhus</span><span class="marquee-sep"></span>
+          <span class="marquee-item">Sollentuna</span><span class="marquee-sep"></span>
+          <span class="marquee-item">Häggvik</span><span class="marquee-sep"></span>
+          <span class="marquee-item"><em>Norrort</em></span><span class="marquee-sep"></span>
+          <span class="marquee-item">Täby</span><span class="marquee-sep"></span>
+          <span class="marquee-item">Danderyd</span><span class="marquee-sep"></span>
+          <span class="marquee-item"><em>Solna</em></span><span class="marquee-sep"></span>
+          <span class="marquee-item">Kista</span><span class="marquee-sep"></span>
+          <span class="marquee-item">Upplands Väsby</span><span class="marquee-sep"></span>
+        </div>
+        <div class="marquee-group">
+          <span class="marquee-item">Utvändig fönsterputs</span><span class="marquee-sep"></span>
+          <span class="marquee-item"><em>Villa</em> & radhus</span><span class="marquee-sep"></span>
+          <span class="marquee-item">Sollentuna</span><span class="marquee-sep"></span>
+          <span class="marquee-item">Häggvik</span><span class="marquee-sep"></span>
+          <span class="marquee-item"><em>Norrort</em></span><span class="marquee-sep"></span>
+          <span class="marquee-item">Täby</span><span class="marquee-sep"></span>
+          <span class="marquee-item">Danderyd</span><span class="marquee-sep"></span>
+          <span class="marquee-item"><em>Solna</em></span><span class="marquee-sep"></span>
+          <span class="marquee-item">Kista</span><span class="marquee-sep"></span>
+          <span class="marquee-item">Upplands Väsby</span><span class="marquee-sep"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- NYCKELTAL -->
+    <section class="trust-bar" aria-label="Jakobs HusFix i korthet">
+      <div class="container">
+        <div class="trust-grid">
+          <div class="trust-item" data-reveal>
+            <span class="trust-num"><span data-count-to="9">9</span>/10</span>
+            <span class="trust-label">nöjda kunder</span>
+          </div>
+          <div class="trust-item" data-reveal data-reveal-delay="90">
+            <span class="trust-num"><span data-count-to="70">0</span> kr</span>
+            <span class="trust-label">per fönster – startpris</span>
+          </div>
+          <div class="trust-item" data-reveal data-reveal-delay="180">
+            <span class="trust-num"><span data-count-to="23">0</span></span>
+            <span class="trust-label">områden i Stockholm med omnejd</span>
+          </div>
+          <div class="trust-item" data-reveal data-reveal-delay="270">
+            <span class="trust-num"><span data-count-to="6">0</span> <em>mån</em></span>
+            <span class="trust-label">i branschen</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FÖNSTERPUTS -->
+    <section class="section" id="fonsterputs">
+      <div class="container">
+        <header class="section-head" data-reveal>
+          <svg class="sparkle" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path
+              d="M12 2C12.9 8.2 14.8 10.1 21 11C14.8 11.9 12.9 13.8 12 20C11.1 13.8 9.2 11.9 3 11C9.2 10.1 11.1 8.2 12 2Z" />
+          </svg>
+          <span class="label-num">01 — Vår tjänst</span>
+          <h2>Fönsterputs – startpris <em>70 kr</em> per fönster</h2>
+          <p class="section-sub">
+            Vi putsar fönstren utvändigt – glas, karmar och fönsterbleck – både i villa och radhus.
+            70 kr per fönster är ett startpris som kan variera beroende på fönstrets storlek, skick
+            och hur lätt det nås. Det slutliga priset ges på plats vid huset, efter att vi bedömt
+            fönstren – innan vi börjar.
+          </p>
+        </header>
+
+        <div class="price-banner" id="priser" data-reveal>
+          <div class="price-main">
+            <span class="price-amount">70 kr</span>
+            <span class="price-unit">per fönster · startpris</span>
+          </div>
+          <p class="price-note">
+            Avser fönstrets utsida, inklusive karmar och bleck. Startpriset 70 kr per fönster kan
+            variera. Det slutliga priset ges på plats vid huset efter bedömning av fönstren, innan
+            arbetet börjar.
+          </p>
+        </div>
+
+        <div class="cards">
+          <article class="card" data-reveal data-tilt>
+            <span class="card-index">01</span>
+            <div class="card-icon">
+              <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.7"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="3" width="8" height="18" rx="1" />
+                <rect x="13" y="3" width="8" height="18" rx="1" />
+                <path d="M6 8h2M6 12h2M6 16h2M16 8h2M16 12h2M16 16h2" />
+              </svg>
+            </div>
+            <h3>Endast utsidan</h3>
+            <p>Vi putsar enbart fönstrets utsida – du slipper flytta gardiner och prylar inomhus.</p>
+          </article>
+
+          <article class="card card--accent" data-reveal data-reveal-delay="90" data-tilt>
+            <span class="card-index">02</span>
+            <div class="card-icon">
+              <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.7"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <path d="M12 3v18M3 12h18" />
+              </svg>
+            </div>
+            <h3>Karmar & bågar</h3>
+            <p>Utvändiga karmar, bågar och fönsterbleck torkas av – inte bara själva glaset.</p>
+          </article>
+
+          <article class="card" data-reveal data-reveal-delay="180" data-tilt>
+            <span class="card-index">03</span>
+            <div class="card-icon">
+              <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.7"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3 12l9-8 9 8" />
+                <path d="M5 10v10h14V10" />
+                <path d="M10 20v-6h4v6" />
+              </svg>
+            </div>
+            <h3>Villa & radhus</h3>
+            <p>Vi putsar fönster i både villor och radhus – samma pris per fönster oavsett storlek.</p>
+          </article>
+
+          <article class="card" data-reveal data-tilt>
+            <span class="card-index">04</span>
+            <div class="card-icon">
+              <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.7"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3 9l1.5-5h15L21 9" />
+                <path d="M4 9v11h16V9" />
+                <path d="M9 20v-6h6v6" />
+              </svg>
+            </div>
+            <h3>Fönsterdörrar & altandörrar</h3>
+            <p>Utvändiga glaspartier, altandörrar och uteplatsdörrar putsas också – vanligt i både villa och radhus.</p>
+          </article>
+
+          <article class="card card--accent" data-reveal data-reveal-delay="90" data-tilt>
+            <span class="card-index">05</span>
+            <div class="card-icon">
+              <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.7"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 19V5" />
+                <path d="M6 11l6-6 6 6" />
+              </svg>
+            </div>
+            <h3>Högt sittande fönster</h3>
+            <p>Vi har utrustning för fönster som sitter högt eller är besvärliga att nå.</p>
+          </article>
+
+          <article class="card" data-reveal data-reveal-delay="180" data-tilt>
+            <span class="card-index">06</span>
+            <div class="card-icon">
+              <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.7"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path
+                  d="M20.6 13.4l-7.2 7.2a2 2 0 01-2.8 0l-7.2-7.2a2 2 0 01-.6-1.4V4a1 1 0 011-1h8a2 2 0 011.4.6l7.4 7.4a2 2 0 010 2.4z" />
+                <circle cx="7.5" cy="7.5" r="1.2" />
+              </svg>
+            </div>
+            <h3>Fast pris på plats</h3>
+            <p>Vi tittar på fönstren på plats vid huset och ger dig ett fast slutpris utifrån storlek och skick innan vi
+              sätter igång.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SÅ FUNKAR DET -->
+    <section class="section section-tint" id="sa-funkar-det">
+      <div class="container">
+        <header class="section-head" data-reveal>
+          <svg class="sparkle" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path
+              d="M12 2C12.9 8.2 14.8 10.1 21 11C14.8 11.9 12.9 13.8 12 20C11.1 13.8 9.2 11.9 3 11C9.2 10.1 11.1 8.2 12 2Z" />
+          </svg>
+          <span class="label-num">02 — Så funkar det</span>
+          <h2>Från bokning till <em>skinande</em> fönster</h2>
+          <p class="section-sub">
+            Du bokar online på under en minut – resten sköter vi. Innan vi sätter igång får du
+            alltid ett fast slutpris på plats vid huset.
+          </p>
+        </header>
+
+        <div class="steps">
+          <span class="steps-line" aria-hidden="true"></span>
+
+          <article class="step" data-reveal>
+            <span class="step-num" aria-hidden="true">1</span>
+            <h3>Boka en tid som passar</h3>
+            <p>
+              Fyll i formuläret längre ned och välj datum och tid. Du får svar samma dag –
+              inget att betala i förskott.
+            </p>
+          </article>
+
+          <article class="step" data-reveal data-reveal-delay="90">
+            <span class="step-num" aria-hidden="true">2</span>
+            <h3>Fast pris på plats</h3>
+            <p>
+              Jakob tittar på fönstren vid huset, bedömer storlek, skick och hur lätta de är att
+              nå – och ger dig ett fast slutpris innan arbetet börjar.
+            </p>
+          </article>
+
+          <article class="step" data-reveal data-reveal-delay="180">
+            <span class="step-num" aria-hidden="true">3</span>
+            <h3>Vi putsar – du njuter</h3>
+            <p>
+              Glas, karmar, bågar och fönsterbleck görs rena utvändigt. Betalning sker med Swish
+              eller kontant efter utfört arbete.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- BILDBAND -->
+    <section class="image-band">
+      <div class="image-band-bg" data-parallax="0.06" aria-hidden="true"></div>
+
+      <div class="container" data-reveal>
+        <p class="eyebrow eyebrow--light">Fönsterputs i Norrort</p>
+        <h2>Vi tar hand om fönstren – <em>du tar ledigt</em></h2>
+        <p class="image-band-text">
+          Utvändig fönsterputs för villa och radhus i Sollentuna, Häggvik och Norrort.
+          Startpriset är 70 kr per fönster och slutpriset får du på plats vid huset –
+          inga överraskningar, inget krångel.
+        </p>
+        <a class="btn btn-mint btn-lg" href="#boka" data-magnetic>
+          Boka tid nu
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14" />
+            <path d="M13 6l6 6-6 6" />
+          </svg>
+        </a>
+      </div>
+
+      <img class="image-band-houses" src="images/villa-fonster.svg" alt="" aria-hidden="true" width="900" height="680"
+        loading="lazy" />
+    </section>
+    <!-- OM OSS -->
+    <section class="section" id="om-oss">
+      <div class="container">
+        <div class="om-oss-inner">
+          <div>
+            <header class="section-head section-head--left" data-reveal>
+              <span class="label-num">03 — Om oss</span>
+              <h2>Lokalt hantverk med <em>öga för detaljer</em></h2>
+              <p class="section-sub">
+                Jakobs HusFix är ett litet Norrort-företag. Vi putsar fönster utvändigt åt
+                villa- och radhusägare i Sollentuna, Häggvik och omnejd – och vi tar samma pris
+                per fönster oavsett hur stort huset är.
+              </p>
+            </header>
+
+            <ul class="check-list" data-reveal data-reveal-delay="90">
+              <li>Vi putsar glas, karmar, bågar och fönsterbleck – hela utsidan.</li>
+              <li>Fast slutpris på plats vid huset, alltid innan vi börjar.</li>
+              <li>Egen utrustning för högt sittande och svåråtkomliga fönster.</li>
+              <li>Betalning först när arbetet är klart och du är nöjd.</li>
+            </ul>
+          </div>
+
+          <div class="om-oss-visual" data-reveal="right" data-reveal-delay="120">
+            <figure class="om-oss-frame">
+              <img src="images/villa-fonster.svg"
+                alt="Nypolerat fönster med rena karmar och fönsterbleck på en villavägg" width="900" height="680"
+                loading="lazy" />
+              <figcaption class="om-oss-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+                  stroke-linejoin="round" aria-hidden="true">
+                  <path d="M20 6L9 17l-5-5" />
+                </svg>
+                Droppfritt &amp; fönsterbleck ingår
+              </figcaption>
+            </figure>
+
+            <div class="stat-grid">
+              <div class="stat">
+                <span class="stat-num"><span data-count-to="9">9</span>/10</span>
+                <span class="stat-label">nöjda kunder</span>
+              </div>
+              <div class="stat">
+                <span class="stat-num"><span data-count-to="70">0</span> kr</span>
+                <span class="stat-label">per fönster – startpris</span>
+              </div>
+              <div class="stat">
+                <span class="stat-num"><span data-count-to="23">0</span></span>
+                <span class="stat-label">områden i Stockholm med omnejd</span>
+              </div>
+              <div class="stat">
+                <span class="stat-num"><span data-count-to="6">0</span> <em>mån</em></span>
+                <span class="stat-label">i branschen</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- OMRÅDE -->
+    <section class="section section-tint" id="omrade">
+      <div class="container">
+        <div class="omrade-inner">
+          <div class="omrade-copy" data-reveal="left">
+            <header class="section-head section-head--left">
+              <span class="label-num">04 — Vårt område</span>
+              <h2>Vi kör i <em>Norrort</em> – med Sollentuna i hjärtat</h2>
+              <p class="section-sub">
+                Sollentuna och Häggvik är vårt kärnområde, men vi tar också uppdrag i
+                närliggande delar av Stockholm. Skriv in din ort eller ditt postnummer så
+                ser du direkt om vi kommer till dig.
+              </p>
+            </header>
+
+            <div class="area-check">
+              <label for="areaQuick">Kontrollera om vi putsar fönster hos dig</label>
+              <div class="area-check-row">
+                <div class="combo" id="areaQuickCombo">
+                  <input type="text" id="areaQuick" name="areaQuick" placeholder="Ort eller postnummer, t.ex. Häggvik"
+                    autocomplete="postal-code" aria-autocomplete="list" aria-expanded="false"
+                    aria-controls="areaQuickList" />
+                  <button class="combo-toggle" type="button" data-combo-toggle aria-label="Visa ortsförslag">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"
+                      stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M6 9l6 6 6-6" />
+                    </svg>
+                  </button>
+                  <ul class="combo-list" id="areaQuickList" role="listbox" aria-label="Ortsförslag"></ul>
+                </div>
+                <button class="btn btn-primary" type="button" id="areaQuickBtn">Kontrollera</button>
+              </div>
+              <p class="area-result" id="areaQuickResult" role="status" aria-live="polite"></p>
+            </div>
+          </div>
+
+          <div class="area-list-wrap" data-reveal="right" data-reveal-delay="90">
+            <h3>Områden vi arbetar i</h3>
+            <ul class="area-list" id="areaList"></ul>
+            <p class="area-note">
+              Listan fylls på automatiskt. Norrort är vårt kärnområde – hittar du inte din ort
+              kan du skriva den i fältet bredvid, eller ringa och fråga.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LEDIGA TIDER, KONTO OCH ÄGARPANEL -->
+    <section class="section" id="lediga-tider">
+      <div class="container">
+        <header class="section-head" data-reveal>
+          <svg class="sparkle sparkle--mint" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path
+              d="M12 2C12.9 8.2 14.8 10.1 21 11C14.8 11.9 12.9 13.8 12 20C11.1 13.8 9.2 11.9 3 11C9.2 10.1 11.1 8.2 12 2Z" />
+          </svg>
+          <span class="label-num">05 — Lediga tider</span>
+          <h2>Lediga och bokade tider – <em>här och nu</em></h2>
+          <p class="section-sub">
+            Här ser du de kommande två veckorna. Grön tid är ledig, röd är redan tagen.
+            Klicka på en ledig tid så fyller vi i bokningen åt dig.
+          </p>
+        </header>
+
+        <div class="slot-tabs" role="tablist" aria-label="Lediga tider, konto och ägarpanel">
+          <button class="slot-tab is-active" type="button" role="tab" id="tabTider" aria-selected="true"
+            aria-controls="panelTider" data-slot-tab="tider">Lediga tider</button>
+          <button class="slot-tab" type="button" role="tab" id="tabKonto" aria-selected="false" tabindex="-1"
+            aria-controls="panelKonto" data-slot-tab="konto">Konto</button>
+          <button class="slot-tab" type="button" role="tab" id="tabAgare" aria-selected="false" tabindex="-1"
+            aria-controls="panelAgare" data-slot-tab="agare" hidden>Ägare</button>
+        </div>
+
+        <!-- Flik 1: de lediga och bokade tiderna -->
+        <div class="slot-panel" id="panelTider" role="tabpanel" aria-labelledby="tabTider" data-slot-panel="tider">
+          <div class="slot-toolbar">
+            <p class="slot-legend">
+              <span class="slot-key slot-key--free"><i aria-hidden="true"></i>Ledig</span>
+              <span class="slot-key slot-key--busy"><i aria-hidden="true"></i>Bokad</span>
+            </p>
+
+            <!-- Statusraden läses upp av skärmläsaren (role="status").
+                 Klockslaget för den senaste kontrollen ligger i den tysta raden
+                 #slotAge, så att en kontroll i bakgrunden inte avbryter den som
+                 lyssnar på sidan. -->
+            <div class="slot-meta">
+              <!-- Pricken visar om listan är kopplad till bokningsservern just nu:
+                   grön och stilla när svaret är färskt, gul och sökande medan
+                   sajten kopplar upp sig igen. Texten bredvid säger samma sak. -->
+              <span class="slot-dot" id="slotDot" aria-hidden="true"></span>
+              <p class="slot-updated" id="slotUpdated" role="status" aria-live="polite"></p>
+              <p class="slot-age" id="slotAge" aria-hidden="true"></p>
+            </div>
+
+            <button class="btn btn-ghost btn-sm slot-refresh" type="button" id="slotRefresh" aria-controls="slotDays"
+              aria-busy="false" title="Hämtar de bokade tiderna på nytt">
+              <span class="slot-refresh-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 11a8 8 0 1 0-2.3 5.7" />
+                  <path d="M20 4.5V11h-6.5" />
+                </svg>
+              </span>
+              <span class="slot-refresh-label">Uppdatera</span>
+            </button>
+          </div>
+
+          <div class="slot-days is-loading" id="slotDays" aria-busy="true">
+            <!-- Platshållare medan de bokade tiderna hämtas. Bokningsservern kan
+                 behöva några sekunder första gången – då syns det tydligt att
+                 arbetet pågår i stället för att listan står tom. -->
+            <div class="slot-skeleton" aria-hidden="true">
+              <span class="slot-skeleton-card"></span>
+              <span class="slot-skeleton-card"></span>
+              <span class="slot-skeleton-card"></span>
+              <span class="slot-skeleton-card"></span>
+            </div>
+            <p class="slot-loading" role="status">Hämtar de bokade tiderna&hellip;</p>
+          </div>
+
+          <p class="slot-note">
+            Listan uppdateras av sig själv med jämna mellanrum och varje gång du kommer
+            tillbaka till fliken. En tid som är bokad försvinner aldrig härifrån – den blir
+            bara röd. Behöver du en tid utanför de vanliga öppettiderna, ring
+            <a href="tel:+46793584957">079-358 49 57</a>.
+          </p>
+        </div>
+
+        <!-- Flik 2: inloggning för ägarkontot och personalen -->
+        <div class="slot-panel" id="panelKonto" role="tabpanel" aria-labelledby="tabKonto" data-slot-panel="konto"
+          hidden>
+          <div class="account-card">
+            <h3 class="account-title" id="accountTitle">Logga in</h3>
+            <p class="account-lead" id="accountLead">
+              Ägarkontot och personalen loggar in här. Konton skapas av Jakob i
+              bokningssystemet – sajten kan aldrig skapa ett konto åt sig själv.
+            </p>
+
+            <form class="account-form" id="loginForm" novalidate>
+              <div class="field">
+                <label for="loginUser">Användarnamn</label>
+                <input type="text" id="loginUser" name="anvandare" autocomplete="username" autocapitalize="none"
+                  spellcheck="false" />
+              </div>
+              <div class="field">
+                <label for="loginPass">Lösenord</label>
+                <input type="password" id="loginPass" name="losenord" autocomplete="current-password" />
+              </div>
+
+              <div class="account-actions">
+                <button class="btn btn-primary" type="submit" id="loginBtn">Logga in</button>
+              </div>
+            </form>
+
+            <!-- Kvittensen och utloggningen ligger utanför formuläret: när någon
+                 är inloggad döljs inloggningsfälten (loginForm), och både
+                 beskedet och "Logga ut" ska finnas kvar då. -->
+            <p class="account-msg" id="loginMessage" role="status" aria-live="polite"></p>
+
+            <div class="account-actions account-actions--out" id="accountOut" hidden>
+              <button class="btn btn-ghost" type="button" id="logoutBtn">Logga ut</button>
+            </div>
+
+            <p class="account-foot">
+              Glömt lösenordet? Kontot återställs av Jakob i bokningssystemet. Är du kund och
+              undrar över din bokning, mejla <a href="mailto:jakobshusfix@gmail.com">jakobshusfix@gmail.com</a>.
+            </p>
+          </div>
+        </div>
+
+        <!-- Flik 3: ägarpanelen (visas bara för ett inloggat ägarkonto) -->
+        <div class="slot-panel" id="panelAgare" role="tabpanel" aria-labelledby="tabAgare" data-slot-panel="agare"
+          hidden>
+          <div class="owner-head">
+            <div class="owner-head-text">
+              <h3 class="owner-title">Jakobs tider</h3>
+              <p class="owner-lead">
+                Välj en dag och klicka på en tid för att växla mellan <strong>Bokad</strong> och
+                <strong>Ledig</strong>. En förfrågan som kunden har skickat ligger i listan nedan och
+                godkänner eller nekar du direkt där – samma sak som knapparna i mejlet gör.
+              </p>
+            </div>
+            <!-- Utloggningen ligger här också, så att den finns inom räckhåll
+                 när du står i ägarpanelen. -->
+            <button class="btn btn-ghost btn-sm owner-logout" type="button" id="ownerLogout" hidden>
+              Logga ut
+            </button>
+          </div>
+
+          <div class="owner-days" id="ownerDays" role="group" aria-label="Välj dag"></div>
+
+          <p class="owner-day" id="ownerDayLabel" role="status" aria-live="polite"></p>
+
+          <div class="owner-hours" id="ownerHours" role="group" aria-label="Tider för vald dag"></div>
+
+          <div class="owner-actions">
+            <button class="btn btn-primary btn-sm" type="button" id="ownerBusyDay">Markera hela dagen som bokad</button>
+            <button class="btn btn-ghost btn-sm" type="button" id="ownerResetDay">Återställ dagen</button>
+            <button class="btn btn-ghost btn-sm" type="button" id="ownerReload">Uppdatera</button>
+          </div>
+
+          <p class="owner-msg" id="ownerMsg" role="status" aria-live="polite"></p>
+          <ul class="owner-bookings" id="ownerBookings"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- BOKA -->
+    <section class="section section-book" id="boka">
+      <div class="container">
+        <header class="section-head section-head--light" data-reveal>
+          <svg class="sparkle sparkle--mint" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path
+              d="M12 2C12.9 8.2 14.8 10.1 21 11C14.8 11.9 12.9 13.8 12 20C11.1 13.8 9.2 11.9 3 11C9.2 10.1 11.1 8.2 12 2Z" />
+          </svg>
+          <span class="label-num">06 — Boka tid</span>
+          <h2>Boka din fönsterputs <em>här</em></h2>
+          <p class="section-sub">
+            Fyll i uppgifterna och välj en tid som passar. Vi bekräftar med ett meddelande –
+            inget att betala i förskott, och du får alltid ett fast slutpris på plats.
+          </p>
+        </header>
+
+        <div class="book-grid">
+          <!-- Skickas förfrågan till e-post (se sendBookingByEmail i js/main.js).
+               Adressen nedan är reservvägen för besökare som har JavaScript
+               avstängt – annars byggs ett snyggare mejl av skriptet. -->
+          <form class="booking-form" id="bookingForm" method="post" action="mailto:jakobshusfix@gmail.com"
+            enctype="text/plain" accept-charset="UTF-8" novalidate>
+            <div class="form-row">
+              <div class="field">
+                <label for="namn">Namn <span class="req">*</span></label>
+                <input type="text" id="namn" name="namn" autocomplete="name" placeholder="För- och efternamn"
+                  required />
+                <p class="error" data-error-for="namn" aria-live="polite"></p>
+              </div>
+
+              <div class="field">
+                <label for="telefon">Telefon <span class="req">*</span></label>
+                <input type="tel" id="telefon" name="telefon" autocomplete="tel" placeholder="070-123 45 67" required />
+                <p class="error" data-error-for="telefon" aria-live="polite"></p>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="field">
+                <label for="epost">E-post <span class="req">*</span></label>
+                <input type="email" id="epost" name="epost" autocomplete="email" placeholder="namn@exempel.se"
+                  required />
+                <p class="error" data-error-for="epost" aria-live="polite"></p>
+              </div>
+
+              <div class="field">
+                <label for="antalFonster">Antal fönster <span class="req">*</span></label>
+                <input type="number" id="antalFonster" name="antalFonster" min="1" max="200" step="1"
+                  inputmode="numeric" placeholder="t.ex. 14" required />
+                <p class="hint">Räkna alla fönster som ska putsas utvändigt.</p>
+                <p class="error" data-error-for="antalFonster" aria-live="polite"></p>
+              </div>
+            </div>
+
+            <p class="price-estimate" id="priceEstimate" role="status" aria-live="polite"></p>
+
+            <div class="form-row">
+              <div class="field">
+                <label for="fastighet">Typ av fastighet</label>
+                <div class="combo combo-select" id="fastighetCombo">
+                  <select class="combo-native" id="fastighet" name="fastighet" tabindex="-1" aria-hidden="true">
+                    <option value="">Välj typ</option>
+                    <option value="Villa">Villa</option>
+                    <option value="Radhus">Radhus</option>
+                    <option value="Parhus eller kedjehus">Parhus eller kedjehus</option>
+                    <option value="Fritidshus">Fritidshus</option>
+                    <option value="Annat">Annat</option>
+                  </select>
+                  <button class="combo-display" type="button" data-combo-display aria-haspopup="listbox"
+                    aria-expanded="false" aria-controls="fastighetList">
+                    <span class="combo-value" data-combo-value>Välj typ</span>
+                  </button>
+                  <button class="combo-toggle" type="button" data-combo-toggle="chevron" aria-label="Visa val">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"
+                      stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M6 9l6 6 6-6" />
+                    </svg>
+                  </button>
+                  <ul class="combo-list" id="fastighetList" role="listbox" aria-label="Typ av fastighet"></ul>
+                </div>
+                <p class="error" data-error-for="fastighet" aria-live="polite"></p>
+              </div>
+
+              <div class="field">
+                <label for="datum">Datum <span class="req">*</span></label>
+                <div class="combo" id="datumCombo">
+                  <input type="text" id="datum" name="datum" placeholder="Välj datum" readonly aria-haspopup="dialog"
+                    aria-expanded="false" aria-controls="datumKalender" required />
+                  <button class="combo-toggle" type="button" data-combo-toggle="chevron" aria-label="Öppna kalendern">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <rect x="3" y="5" width="18" height="16" rx="2" />
+                      <path d="M8 3v4M16 3v4M3 11h18" />
+                    </svg>
+                  </button>
+                  <div class="datepicker" id="datumKalender" role="dialog" aria-label="Välj datum"></div>
+                </div>
+                <p class="hint">Bokningsbara tider: mån–fre 15:00–20:00, lör–sön 10:00–18:00.</p>
+                <p class="error" data-error-for="datum" aria-live="polite"></p>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="field">
+                <label for="omradeInput">Ort eller postnummer <span class="req">*</span></label>
+                <div class="combo" id="omradeCombo">
+                  <input type="text" id="omradeInput" name="omrade" placeholder="t.ex. Häggvik eller 192 71"
+                    autocomplete="postal-code" aria-autocomplete="list" aria-expanded="false" aria-controls="omradeList"
+                    required />
+                  <button class="combo-toggle" type="button" data-combo-toggle aria-label="Visa ortsförslag">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"
+                      stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M6 9l6 6 6-6" />
+                    </svg>
+                  </button>
+                  <ul class="combo-list" id="omradeList" role="listbox" aria-label="Ortsförslag"></ul>
+                </div>
+                <p class="hint">Vi kontrollerar direkt att adressen ligger inom vårt serviceområde.</p>
+                <p class="error" data-error-for="omrade" aria-live="polite"></p>
+              </div>
+
+              <div class="field">
+                <label for="tid">Tid <span class="req">*</span></label>
+                <div class="combo combo-select is-empty" id="tidCombo">
+                  <select class="combo-native" id="tid" name="tid" tabindex="-1" aria-hidden="true" disabled>
+                    <option value="">Välj datum först</option>
+                  </select>
+                  <button class="combo-display" type="button" data-combo-display aria-haspopup="listbox"
+                    aria-expanded="false" aria-controls="tidList" disabled>
+                    <span class="combo-value" data-combo-value>Välj datum först</span>
+                  </button>
+                  <button class="combo-toggle" type="button" data-combo-toggle="chevron" aria-label="Visa tider">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"
+                      stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M6 9l6 6 6-6" />
+                    </svg>
+                  </button>
+                  <ul class="combo-list" id="tidList" role="listbox" aria-label="Lediga tider"></ul>
+                </div>
+                <p class="hint">Tiderna som visas är lediga starttider för valt datum – tider som redan har börjat tas
+                  bort.</p>
+                <p class="error" data-error-for="tid" aria-live="polite"></p>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="adress">Gatuadress</label>
+              <input type="text" id="adress" name="adress" autocomplete="street-address"
+                placeholder="t.ex. Björkvägen 12" />
+            </div>
+
+            <div class="field">
+              <label for="meddelande">Meddelande</label>
+              <textarea id="meddelande" name="meddelande" rows="4"
+                placeholder="Portkod, högt sittande fönster eller något annat vi bör veta"></textarea>
+            </div>
+
+            <p class="form-fineprint">
+              Uppgifterna används bara för att boka och utföra jobbet. Förfrågan är inte bindande
+              förrän vi har bekräftat tiden åt dig.
+            </p>
+
+            <p class="hint">
+              Förfrågan skickas till
+              <a href="mailto:jakobshusfix@gmail.com">jakobshusfix@gmail.com</a>.
+              Vill du hellre ringa? <a href="tel:+46793584957">079-358 49 57</a>.
+            </p>
+
+            <button class="btn btn-accent btn-lg btn-block" type="submit" id="submitBtn">Skicka
+              bokningsförfrågan</button>
+            <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+
+            <!-- Nödlucka: reservvägar som alltid finns kvar under formuläret, så
+                 att förfrågan kan nå fram även om kundens e-postprogram inte
+                 öppnas. Den första knappen öppnar besökarens eget, förvalda
+                 e-postprogram på nytt (en vanlig mailto-länk som besökaren
+                 själv klickar på), de övriga går via WhatsApp, SMS eller
+                 telefon. Adress och nummer står i klartext här också, så att
+                 knapparna fungerar för besökare som har JavaScript avstängt.
+                 Ändrar du nummer eller adress: uppdatera companyEmail och
+                 companyPhone i konfigurationen längst ned i filen samtidigt. -->
+            <div class="form-backup" id="formBackup">
+              <p class="form-backup-title">Går det inte att skicka mejlet?</p>
+              <p class="form-backup-lead">
+                Fyll i formuläret först och använd knapparna här nedanför – uppgifterna följer
+                med automatiskt, precis som i mejlet. ”Öppna i e-postprogrammet” öppnar det
+                program du själv har valt som ditt vanliga e-postprogram för mejl.
+              </p>
+              <div class="form-backup-actions">
+                <a class="btn btn-ghost btn-sm" id="backupMail"
+                  href="mailto:jakobshusfix@gmail.com?subject=Bokningsf%C3%B6rfr%C3%A5gan%20fr%C3%A5n%20hemsidan">Öppna
+                  i e-postprogrammet</a>
+                <button class="btn btn-ghost btn-sm" type="button" id="copyBtn">Kopiera uppgifterna</button>
+                <a class="btn btn-ghost btn-sm" id="backupWhatsApp"
+                  href="https://wa.me/46793584957?text=Hej%21%20Jag%20vill%20boka%20f%C3%B6nsterputs." target="_blank"
+                  rel="noopener">Skicka på WhatsApp</a>
+                <a class="btn btn-ghost btn-sm" id="backupSms"
+                  href="sms:+46793584957?body=Hej%21%20Jag%20vill%20boka%20f%C3%B6nsterputs.">Skicka som SMS</a>
+                <a class="btn btn-ghost btn-sm" href="tel:+46793584957">Ring 079-358 49 57</a>
+              </div>
+              <p class="form-backup-note" id="backupNote" role="status" aria-live="polite"></p>
+              <textarea class="form-backup-textarea" id="backupText" rows="8" readonly hidden
+                aria-label="Bokningsförfrågan som text"></textarea>
+            </div>
+          </form>
+          <aside class="booking-aside" aria-label="Bra att veta innan du bokar">
+            <div class="aside-card aside-card-accent">
+              <h3>Startpris 70 kr per fönster</h3>
+              <p>
+                Priset per fönster är ett startpris och kan variera med fönstrets storlek, skick
+                och hur lätt det nås. Det slutliga priset får du på plats vid huset – innan vi
+                börjar.
+              </p>
+              <ul class="check-list check-list--light">
+                <li>Glas, karmar, bågar och bleck ingår</li>
+                <li>Fast pris innan arbetet börjar</li>
+                <li>Betala efteråt – Swish eller kontant</li>
+              </ul>
+            </div>
+
+            <div class="aside-card">
+              <h3>Öppettider</h3>
+              <ul class="hours">
+                <li><span>Mån–fre</span><span>15:00–20:00</span></li>
+                <li><span>Lördag</span><span>10:00–18:00</span></li>
+                <li><span>Söndag</span><span>10:00–18:00</span></li>
+              </ul>
+              <p class="hours-note">Tiderna gäller bokningsbara starttider. Vi svarar på din förfrågan samma dag.</p>
+            </div>
+
+            <div class="aside-card">
+              <h3>Vill du hellre prata?</h3>
+              <p>Ring eller skicka ett meddelande – då hjälper vi dig hitta en tid som passar.</p>
+              <p class="aside-contact">
+                <a href="tel:+46793584957">079-358 49 57</a><br />
+                <a href="mailto:jakobshusfix@gmail.com">jakobshusfix@gmail.com</a><br />
+                <a href="https://wa.me/46793584957" target="_blank" rel="noopener">WhatsApp</a>
+              </p>
+            </div>
+          </aside>
+        </div>
+      </div>
+
+      <!-- Svar från bokningsservern tas emot här så att sidan inte laddas om. -->
+      <iframe id="bookingSink" name="bookingSink" title="Svar från bokningssystemet" hidden></iframe>
+    </section>
+  </main>
+
+  <!-- SIDFOT -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <img class="footer-logo" src="images/logo.png" alt="Jakobs HusFix logotyp" width="54" height="54"
+            loading="lazy" />
+          <span class="brand-text">Jakobs <strong>HusFix</strong></span>
+          <p>
+            Utvändig fönsterputs för villa och radhus i Sollentuna, Häggvik och Norrort.
+            Startpris 70 kr per fönster – slutpriset ges på plats vid huset, innan vi börjar.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Tjänster</h4>
+          <ul>
+            <li><a href="#fonsterputs">Fönsterputs utvändigt</a></li>
+            <li><a href="#fonsterputs">Villa &amp; radhus</a></li>
+            <li><a href="#fonsterputs">Karmar, bågar &amp; bleck</a></li>
+            <li><a href="#fonsterputs">Högt sittande fönster</a></li>
+            <li><a href="#priser">Priser</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Snabblänkar</h4>
+          <ul>
+            <li><a href="#sa-funkar-det">Så funkar det</a></li>
+            <li><a href="#om-oss">Om oss</a></li>
+            <li><a href="#omrade">Vårt område</a></li>
+            <li><a href="#lediga-tider">Lediga tider</a></li>
+            <li><a href="#boka">Boka tid</a></li>
+            <li><a href="#top">Till toppen</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Kontakt</h4>
+          <ul>
+            <li><a href="tel:+46793584957">079-358 49 57</a></li>
+            <li><a href="mailto:jakobshusfix@gmail.com">jakobshusfix@gmail.com</a></li>
+            <li><a href="https://wa.me/46793584957" target="_blank" rel="noopener">WhatsApp</a></li>
+            <li>Sollentuna · Häggvik · Norrort</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© <span id="year">2026</span> Jakobs HusFix – fönsterputs i Sollentuna, Häggvik &amp; Norrort.</p>
+        <p>Mån–fre 15–20 · Lör–sön 10–18 · <a href="#boka">Boka tid</a></p>
+      </div>
+
+      <span class="footer-wordmark" aria-hidden="true">Jakobs <em>HusFix</em></span>
+    </div>
+  </footer>
+
+  <!-- TILL TOPPEN -->
+  <button class="to-top" id="toTop" type="button" aria-label="Till toppen av sidan">
+    <span class="to-top-ring" aria-hidden="true">
+      <svg viewBox="0 0 54 54" focusable="false">
+        <circle cx="27" cy="27" r="25.5" />
+      </svg>
+    </span>
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"
+      stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M12 19V6" />
+      <path d="M6 12l6-6 6 6" />
+    </svg>
+  </button>
+
+  <!-- MUSPEKARLJUS (följer muspekaren, se css/effects.css) -->
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+
+  <!-- Konfiguration för bokningen.
+       companyEmail:  hit skickas bokningsförfrågan.
+       bookingApiUrl: adressen till bokningsservern (Google Apps Script). Är den
+                      tom öppnas besökarens eget e-postprogram – det som är
+                      standard på enheten – med hela förfrågan färdigifylld till
+                      companyEmail. Se sendBookingByEmail och openDefaultMailApp
+                      i js/main.js samt google-apps-script/README.md.
+       companyPhone/companyPhoneDisplay: numret för ring/WhatsApp/SMS. -->
+  <script>
+    window.JAKOBS_HUSFIX_CONFIG = {
+      bookingApiUrl: "https://script.google.com/macros/s/AKfycbxFp4QXykHAZe6KiK1gWH6ud00MIs-G4R3kMniQXGclp9V-3TwGaq2rH9f-BMT_HHJ0pg/exec",
+      companyEmail: "jakobshusfix@gmail.com",
+      companyPhone: "46793584957",
+      companyPhoneDisplay: "079-358 49 57"
+    };
+  </script>
+
+  <!-- effects.js först: stänger förladdningen och startar rörelseeffekterna. -->
+  <script src="js/effects.js" defer></script>
+  <script src="js/main.js" defer></script>
+</body>
+
+</html>

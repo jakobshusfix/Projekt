@@ -189,12 +189,6 @@ Konton kan bara skapas inifrån skriptet – sajten kan aldrig skapa ett konto �
 sig själv. Ägarkontot är redan förberett i `Code.gs`, med ett färdigt
 användarnamn och lösenord:
 
-| | |
-| --- | --- |
-| **Användarnamn** | `jakob` |
-| **Lösenord** | `JakobsHusFix2026` |
-| **Roll** | `agare` – ger Ägare-fliken på sajten |
-
 Så här gör du:
 
 1. Öppna skriptet (kalkylarket → **Tillägg → Apps Script**).
